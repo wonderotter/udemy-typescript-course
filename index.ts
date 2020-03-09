@@ -28,5 +28,8 @@ const logToDo = (ID: number, title: string, finished: boolean) => {
 // When to use annotations
 // 1) Function that returns the 'any' type
 const json = '{"x":10, "y":20}';
-const coordinates = JSON.parse(json);
+const coordinates: { x: number; y: number } = JSON.parse(json);
 console.log(coordinates); // {x:10, y:20}
+
+//coordinates.dsfdsfsdfsdf -> error를 잡는다
+// any type일때는 못잡음.
