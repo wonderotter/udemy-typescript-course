@@ -109,3 +109,26 @@ Todo		{id:1, completed:true, title:'trash'}
    -> developers tell typescript the type
 2. Type inference: typecript가 변수가 가리키는 value의 타입이 무엇인지 알아내려고 시도하는 것
    -> typescript guesses the type
+
+### Understanding Inference
+
+```
+let apples = 5;
+-> typescript가 변수의 type을 자동으로 알아낸다
+let apples;
+apples = 5;
+-> typescript가 알아내지 못한다.(any)
+```
+
+Initialization(초기화)를 통해서만 inference가 가능하다.
+
+### typescript가 알아서 type을 알아내는데 왜 annotation을 해줘야 하는 걸까?
+
+JSON.parse('false') -> boolean
+JSON.parse('4') -> number
+JSON.parse('{"value":5}') -> {value:number}
+JSON.parse('{"name":"alex"}') -> {name: string}
+
+JSON.parse를 통해서 얻는 type은 값에 따라 다양하다. 따라서 typescript는 type을 예상할 수 가 없다. 이것을 ts는 any type으로 부르기로 한다(즉 any type의 의미는 ts가 어떤 타입의 값을 리턴 받을 지 모른다는 의미다)
+
+-> 이것은 매우 안 좋은것. ts가 타입을 체크하지 못하면 오류를 잡아내지 못하기 때문에 의미가 없다.ㄴ
