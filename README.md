@@ -162,5 +162,13 @@ for(let i=0; i< words.length; i++){
 3. When we want a variable to have a type that cant't be inferred
 
 ```
+let numbers = [-10, -1, 12];
+let numberAboveZero: boolean | number = false;
+
+for (let i = 0; i < numbers.length; i++) {
+  if (numbers[i] > 0) {
+    numberAboveZero = numbers[i];
+  }
+}
 
 ```
