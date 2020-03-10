@@ -131,4 +131,36 @@ JSON.parse('{"name":"alex"}') -> {name: string}
 
 JSON.parse를 통해서 얻는 type은 값에 따라 다양하다. 따라서 typescript는 type을 예상할 수 가 없다. 이것을 ts는 any type으로 부르기로 한다(즉 any type의 의미는 ts가 어떤 타입의 값을 리턴 받을 지 모른다는 의미다)
 
--> 이것은 매우 안 좋은것. ts가 타입을 체크하지 못하면 오류를 잡아내지 못하기 때문에 의미가 없다.ㄴ
+-> 이것은 매우 안 좋은것. ts가 타입을 체크하지 못하면 오류를 잡아내지 못하기 때문에 의미가 없다.
+
+따라서 몇몇의 경우는 annotation을 통해 typescript에게 type을 알려줘야한다
+
+1. When a fucntion returns the 'any' type and we need to clarify the value
+
+```
+const json = '{"x":10, "y":20}';
+const coordinates: { x: number; y: number } = JSON.parse(json);
+console.log(coordinates); // {x:10, y:20}
+
+//coordinates.dsfdsfsdfsdf -> error를 잡는다
+// any type일때는 못잡음.
+```
+
+2. When we declare a variable on one line then initialize it later
+
+```
+let words = ['red', 'green', 'blue'];
+let foundWord: boolean;
+
+for(let i=0; i< words.length; i++){
+  if(words[i] === 'blue'){
+    foundWord = true;
+  }
+}
+```
+
+3. When we want a variable to have a type that cant't be inferred
+
+```
+
+```

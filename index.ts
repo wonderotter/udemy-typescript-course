@@ -33,3 +33,14 @@ console.log(coordinates); // {x:10, y:20}
 
 //coordinates.dsfdsfsdfsdf -> error를 잡는다
 // any type일때는 못잡음.
+
+// 2) When we declare a variable on one line
+// and initializate it later
+let words = ['red', 'green', 'blue'];
+let foundWord: boolean;
+
+for (let i = 0; i < words.length; i++) {
+  if (words[i] === 'blue') {
+    foundWord = true;
+  }
+}
