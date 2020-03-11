@@ -172,3 +172,9 @@ for (let i = 0; i < numbers.length; i++) {
 }
 
 ```
+
+## 섹션 4. Annotations with functions and objects
+
+1. 함수에 대한 type annotation -> 어떤 타입의 인자를 함수가 받을건지, 어떤 타입의 값을 함수가 리턴할 것 인지 typescript에게 말하기 위해 추가하는 코드
+
+2. 함수에 대한 type inference -> typescript가 어떤 타입의 값을 함수가 리턴할 것인지 알아내려고 시도하는 것
