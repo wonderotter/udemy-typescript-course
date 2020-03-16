@@ -178,3 +178,6 @@ for (let i = 0; i < numbers.length; i++) {
 1. 함수에 대한 type annotation -> 어떤 타입의 인자를 함수가 받을건지, 어떤 타입의 값을 함수가 리턴할 것 인지 typescript에게 말하기 위해 추가하는 코드
 
 2. 함수에 대한 type inference -> typescript가 어떤 타입의 값을 함수가 리턴할 것인지 알아내려고 시도하는 것
+
+-> 이 강의에서는 arguments, return value 모두 annotation을 한다.
+return value는 ts가 자동으로 type infercne를 해주지만 annotation을 할 것 이다.
