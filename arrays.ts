@@ -11,7 +11,7 @@ const cars = carMakers[0];
 const myCar = carMakers.pop();
 
 // Prevent incompatibale values
-carMakers.push(100);
+// carMakers.push(100); -> error
 
 // Help with map
 carMakers.map((car: string) => {
