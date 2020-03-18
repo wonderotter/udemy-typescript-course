@@ -215,3 +215,7 @@ importantDates.push(new Date());
 ### When to Use Typed Arrays
 
 임의의 정렬 순서를 가진 레코드(기록)의 모음을 표현할때마다 필요하다!
+
+## 섹션 6. Tuples in Typescript
+
+Tuple: 각 요소가 한 레코드의 일부 속성을 나타내는 구조와 같은 배열
