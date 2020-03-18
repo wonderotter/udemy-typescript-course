@@ -245,3 +245,9 @@ const carStats = {
 ```
 
 하지만 해당 기능은 ts의 공식 문서에 있는 ts 특징이고 나중에 실습할 때 다룰 예정.
+
+## 섹션 7. The All-Important Interface
+
+### Interface란?
+
+object의 속성 이름과 value types를 묘사하는 새로운 type을 만들어 내는 것.
