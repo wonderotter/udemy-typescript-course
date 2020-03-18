@@ -230,3 +230,18 @@ const coke: Drink = ['brown', true, 40];
 const sprite: Drink = ['clear', true, 40];
 const tea: Drink = ['brown', false, 0];
 ```
+
+### Why Tuples?
+
+// tuple이 object보다 한 눈에 알아보기 힘들다. 잘 사용하지 않음.
+
+```
+const carSpecs: [number, number] = [400, 3354];
+
+const carStats = {
+  horsePower: 400,
+  weight: 3354
+}
+```
+
+하지만 해당 기능은 ts의 공식 문서에 있는 ts 특징이고 나중에 실습할 때 다룰 예정.

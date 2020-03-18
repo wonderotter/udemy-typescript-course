@@ -14,3 +14,11 @@ type Drink = [string, boolean, number];
 const coke: Drink = ['brown', true, 40];
 const sprite: Drink = ['clear', true, 40];
 const tea: Drink = ['brown', false, 0];
+
+// tuple이 object보다 한 눈에 알아보기 힘들다.
+const carSpecs: [number, number] = [400, 3354];
+
+const carStats = {
+  horsePower: 400,
+  weight: 3354
+};
