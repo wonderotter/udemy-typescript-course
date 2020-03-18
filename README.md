@@ -219,3 +219,14 @@ importantDates.push(new Date());
 ## 섹션 6. Tuples in Typescript
 
 Tuple: 각 요소가 한 레코드의 일부 속성을 나타내는 구조와 같은 배열
+
+```
+// annotation을 통해 순서를 바꿔서 입력할 수 없고 각 속성의 의미를 알게된다.
+const tuple_pepsi: [string, boolean, number] = ['brown', true, 40];
+
+// Type alias
+type Drink = [string, boolean, number];
+const coke: Drink = ['brown', true, 40];
+const sprite: Drink = ['clear', true, 40];
+const tea: Drink = ['brown', false, 0];
+```
