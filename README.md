@@ -181,3 +181,37 @@ for (let i = 0; i < numbers.length; i++) {
 
 -> 이 강의에서는 arguments, return value 모두 annotation을 한다.
 return value는 ts가 자동으로 type infercne를 해주지만 annotation을 할 것 이다.
+
+## 섹션 5. Mastering Typed Arrays
+
+Typed Arrays : 일관된 type의 값이 element인 배열
+
+### Why do we care?
+
+- TS는 배열로부터 값을 추출할 때 type inference를 할 수 있다.
+
+```
+const cars = carMakers[0];
+const myCar = carMakers.pop();
+```
+
+- TS는 type이 안 맞는 값들을 배열에 넣는 것을 방지해준다
+- map, forEach, reduce같은 함수들의 도움을 받을 수 있다
+
+```
+carMakers.map((car: string) => {
+return car;
+})
+```
+
+- 유연함 - 배열들은 여전히 다양한 다른 타입들을 가질 포함할 수 있다.
+
+```
+const importantDates: (Date | string)[] = [new Date(), '2030-10-10'];
+importantDates.push('dkfldkf');
+importantDates.push(new Date());
+```
+
+### When to Use Typed Arrays
+
+임의의 정렬 순서를 가진 레코드(기록)의 모음을 표현할때마다 필요하다!
