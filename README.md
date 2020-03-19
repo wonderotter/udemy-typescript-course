@@ -291,3 +291,9 @@ printSummary(oldCivic);
 printSummary(drink);
 
 ```
+
+Interface Reportable
+: Reportable is a gatekeeper to printSummary
+
+oldCivic, drink
+: Must satisfy the 'Reportable' interface to work with printSummary
