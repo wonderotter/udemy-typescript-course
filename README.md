@@ -251,3 +251,43 @@ const carStats = {
 ### Interface란?
 
 object의 속성 이름과 value types를 묘사하는 새로운 type을 만들어 내는 것.
+
+- 하나의 interface로 굉장히 다른 objects의 다른 속성들으 모형을 묘사할 수 있다.
+- 이 매우 다른 objects이 다른 함수들과 상호작용하게 만들 수 있다.
+  ex) printSummary
+
+```
+interface Reportable {
+  //name: string;
+  //year: Date;
+  //broken: boolean;
+  summary(): string;
+}
+
+const oldCivic = {
+  name: "civic",
+  year: new Date(),
+  broken: true,
+  summary(): string {
+    return `name: ${this.name}`;
+  }
+};
+
+const drink = {
+  color: "brown",
+  carbonated: true,
+  sugar: 40,
+  summary(): string {
+    return `color: ${this.color}`;
+  }
+};
+
+// summary property만 있어도 오류를 띄우지 않는다.
+const printSummary = (item: Reportable): void => {
+  console.log(item.summary());
+};
+
+printSummary(oldCivic);
+printSummary(drink);
+
+```
