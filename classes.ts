@@ -1,3 +1,4 @@
+// ParentClass or SuperClass
 class Vehicle {
   drive(): void {
     console.log('hellllo!');
@@ -7,7 +8,14 @@ class Vehicle {
   }
 }
 
-// vehicle : instance
-const vehicle = new Vehicle();
-vehicle.drive();
-vehicle.honk();
+// Car: child cass
+class Car extends Vehicle {
+  //override
+  drive(): void {
+    console.log('부르릉!');
+  }
+}
+
+const car = new Car();
+car.drive();
+car.honk();
