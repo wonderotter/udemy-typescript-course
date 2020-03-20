@@ -297,3 +297,13 @@ Interface Reportable
 
 oldCivic, drink
 : Must satisfy the 'Reportable' interface to work with printSummary
+
+## 섹션 8. Building functionality with Classes
+
+- Instance Method Modifiers
+
+* public : This method can be called any where, any time
+* private: This method can only be called by other methods in this class
+* protected: This method can be called by other methods in this class, or by other methos in child classes
+
+- 부모 메소드를 오버라이딩 하는 경우 modifier 수정 불가능.
