@@ -1,9 +1,14 @@
 // ParentClass or SuperClass
 class Vehicle {
+  constructor(public color: string) {}
+
   protected honk(): void {
     console.log("빵빵!");
   }
 }
+
+const vehicle = new Vehicle("white");
+console.log(vehicle.color);
 
 // Car: child cass
 class Car extends Vehicle {
@@ -16,5 +21,5 @@ class Car extends Vehicle {
   }
 }
 
-const car = new Car();
+const car = new Car("brown");
 car.startDrivingProcess();

@@ -307,3 +307,22 @@ oldCivic, drink
 * protected: This method can be called by other methods in this class, or by other methos in child classes
 
 - 부모 메소드를 오버라이딩 하는 경우 modifier 수정 불가능.
+
+### Fields in classes
+
+- constructor shortcut example
+
+```
+class Vehicle {
+  constructor(public color: string)
+}
+
+// 위는 아래 처럼 풀어 쓸 수 있다.
+class Vehicle {
+  color: string;
+
+  constructor(color: string){
+    this.color = color;
+  }
+}
+```
