@@ -326,3 +326,38 @@ class Vehicle {
   }
 }
 ```
+
+### Fields with Inheritance
+
+- 상속을 받으면 child class는 constructor, methods 모두 자동으로 부모 클래스 것도 물려받게 된다.
+
+```
+// ParentClass or SuperClass
+class Vehicle {
+  constructor(public color: string) {}
+
+  protected honk(): void {
+    console.log("빵빵!");
+  }
+}
+
+// Car: child cass
+class Car extends Vehicle {
+  //color에 public을 안 쓴 이유는 car의 color에 새로운 필드를 재할당 하거나 생성하고 싶지 않아서
+  // color는 vehicle에 속한 property이기 때문. modifier를 안 붙이면 parameter, 붙이면 car의 property로 재할당된다.
+  constructor(public wheels: number, color: string) {
+    super(color);
+  }
+
+  private drive(): void {
+    console.log("부르릉!");
+  }
+  startDrivingProcess(): void {
+    this.drive();
+    this.honk();
+  }
+}
+
+const car = new Car(4, "pink");
+
+```
