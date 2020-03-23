@@ -297,3 +297,12 @@ Interface Reportable
 
 oldCivic, drink
 : Must satisfy the 'Reportable' interface to work with printSummary
+
+## 섹션 9. Design Patterns with Typescript
+
+get started
+
+```
+// Tool to help us run Typescript in the browser
+npm install -g parcel-bundler
+```
