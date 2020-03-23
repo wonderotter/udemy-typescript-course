@@ -306,3 +306,14 @@ get started
 // Tool to help us run Typescript in the browser
 npm install -g parcel-bundler
 ```
+
+Parcel Bundler -> index.html - script of 'index.ts' -> compile it to JS then replace this script tag
+
+src 폴더에 index.ts를 만들고 index.html에 넣어준뒤
+
+```
+parcel index.html
+```
+
+![변환된 ts](https://user-images.githubusercontent.com/45552388/77293752-49a5aa00-6d26-11ea-933e-a3819cf94d3e.png)
+parcel bundler가 ts파일을 js파일로 변환시킨다.

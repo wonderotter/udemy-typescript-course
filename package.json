@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
   }
 }
