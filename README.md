@@ -330,3 +330,18 @@ index.ts(소문자로 시작하는 파일) :
 - 주목적이 import
 - anytime you have a file that either serves as something like the index.tx file
   so come in root of your application where a file that exports plain objects, plain functions or constants.
+
+  ## Generating Random Data
+
+  위도, 경도 데이터를 random하게 만들어준다.
+
+  ```
+  npm install faker;
+  ```
+
+## Type Definition Files
+
+Typescript Code -> Type definition file -> JS Library
+
+Type Definition을 가지고 있지 않으면 module import할 때 오류가 뜬다.
+-> 수동적으로 type definition을 설치해줘야함.
