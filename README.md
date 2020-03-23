@@ -317,3 +317,16 @@ parcel index.html
 
 ![변환된 ts](https://user-images.githubusercontent.com/45552388/77293752-49a5aa00-6d26-11ea-933e-a3819cf94d3e.png)
 parcel bundler가 ts파일을 js파일로 변환시킨다.
+
+## Map project structure
+
+'src' Folder
+index.ts - Map.ts - User.ts - Company.ts
+
+파일명을 대문자 만드는 규칙
+: 주 목적이 class를 export하는 것일 때 대문자를 사용한다.
+index.ts(소문자로 시작하는 파일) :
+
+- 주목적이 import
+- anytime you have a file that either serves as something like the index.tx file
+  so come in root of your application where a file that exports plain objects, plain functions or constants.
