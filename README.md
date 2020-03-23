@@ -345,3 +345,67 @@ Typescript Code -> Type definition file -> JS Library
 
 Type Definition을 가지고 있지 않으면 module import할 때 오류가 뜬다.
 -> 수동적으로 type definition을 설치해줘야함.
+
+## 섹션 8. Building functionality with Classes
+
+- Instance Method Modifiers
+
+* public : This method can be called any where, any time
+* private: This method can only be called by other methods in this class
+* protected: This method can be called by other methods in this class, or by other methos in child classes
+
+- 부모 메소드를 오버라이딩 하는 경우 modifier 수정 불가능.
+
+### Fields in classes
+
+- constructor shortcut example
+
+```
+class Vehicle {
+  constructor(public color: string)
+}
+
+// 위는 아래 처럼 풀어 쓸 수 있다.
+class Vehicle {
+  color: string;
+
+  constructor(color: string){
+    this.color = color;
+  }
+}
+```
+
+### Fields with Inheritance
+
+- 상속을 받으면 child class는 constructor, methods 모두 자동으로 부모 클래스 것도 물려받게 된다.
+
+```
+// ParentClass or SuperClass
+class Vehicle {
+  constructor(public color: string) {}
+
+  protected honk(): void {
+    console.log("빵빵!");
+  }
+}
+
+// Car: child cass
+class Car extends Vehicle {
+  //color에 public을 안 쓴 이유는 car의 color에 새로운 필드를 재할당 하거나 생성하고 싶지 않아서
+  // color는 vehicle에 속한 property이기 때문. modifier를 안 붙이면 parameter, 붙이면 car의 property로 재할당된다.
+  constructor(public wheels: number, color: string) {
+    super(color);
+  }
+
+  private drive(): void {
+    console.log("부르릉!");
+  }
+  startDrivingProcess(): void {
+    this.drive();
+    this.honk();
+  }
+}
+
+const car = new Car(4, "pink");
+
+```
