@@ -298,54 +298,6 @@ Interface Reportable
 oldCivic, drink
 : Must satisfy the 'Reportable' interface to work with printSummary
 
-## 섹션 9. Design Patterns with Typescript
-
-get started
-
-```
-// Tool to help us run Typescript in the browser
-npm install -g parcel-bundler
-```
-
-Parcel Bundler -> index.html - script of 'index.ts' -> compile it to JS then replace this script tag
-
-src 폴더에 index.ts를 만들고 index.html에 넣어준뒤
-
-```
-parcel index.html
-```
-
-![변환된 ts](https://user-images.githubusercontent.com/45552388/77293752-49a5aa00-6d26-11ea-933e-a3819cf94d3e.png)
-parcel bundler가 ts파일을 js파일로 변환시킨다.
-
-## Map project structure
-
-'src' Folder
-index.ts - Map.ts - User.ts - Company.ts
-
-파일명을 대문자 만드는 규칙
-: 주 목적이 class를 export하는 것일 때 대문자를 사용한다.
-index.ts(소문자로 시작하는 파일) :
-
-- 주목적이 import
-- anytime you have a file that either serves as something like the index.tx file
-  so come in root of your application where a file that exports plain objects, plain functions or constants.
-
-  ## Generating Random Data
-
-  위도, 경도 데이터를 random하게 만들어준다.
-
-  ```
-  npm install faker;
-  ```
-
-## Type Definition Files
-
-Typescript Code -> Type definition file -> JS Library
-
-Type Definition을 가지고 있지 않으면 module import할 때 오류가 뜬다.
--> 수동적으로 type definition을 설치해줘야함.
-
 ## 섹션 8. Building functionality with Classes
 
 - Instance Method Modifiers
@@ -408,4 +360,69 @@ class Car extends Vehicle {
 
 const car = new Car(4, "pink");
 
+```
+
+## 섹션 9. Design Patterns with Typescript
+
+get started
+
+```
+// Tool to help us run Typescript in the browser
+npm install -g parcel-bundler
+```
+
+Parcel Bundler -> index.html - script of 'index.ts' -> compile it to JS then replace this script tag
+
+src 폴더에 index.ts를 만들고 index.html에 넣어준뒤
+
+```
+parcel index.html
+```
+
+![변환된 ts](https://user-images.githubusercontent.com/45552388/77293752-49a5aa00-6d26-11ea-933e-a3819cf94d3e.png)
+parcel bundler가 ts파일을 js파일로 변환시킨다.
+
+## Map project structure
+
+'src' Folder
+index.ts - Map.ts - User.ts - Company.ts
+
+파일명을 대문자 만드는 규칙
+: 주 목적이 class를 export하는 것일 때 대문자를 사용한다.
+index.ts(소문자로 시작하는 파일) :
+
+- 주목적이 import
+- anytime you have a file that either serves as something like the index.tx file
+  so come in root of your application where a file that exports plain objects, plain functions or constants.
+
+  ## Generating Random Data
+
+  위도, 경도 데이터를 random하게 만들어준다.
+
+  ```
+  npm install faker;
+  ```
+
+## Type Definition Files
+
+Typescript Code -> Type definition file -> JS Library
+
+Type Definition을 가지고 있지 않으면 module import할 때 오류가 뜬다.
+-> Could not find a declaration file for module 'faker'.
+-> 수동적으로 type definition을 설치해줘야함.
+
+Definitely Typed Naming Scheme
+@types/{library name} -> @types/faker
+
+대부분 type definition file이 존재한다.
+to install that type definition file, we're going to reach into a project called 'definitely typed'
+Definitely Typed: the name of the project that includes all these precreated or pregenerated type definition
+
+npmjs.com 접속 -> @types/faker ->
+Details쪽 보면
+Files were epxorted from https://github.com/DefinitelyTypes/DefinitelyTypes/tree/master....
+DefinitelyTypes-> Anytime you see that term they're talking about type definition files for javascript libraries.
+
+```
+npm install @types/faker
 ```
