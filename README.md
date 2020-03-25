@@ -382,7 +382,7 @@ parcel index.html
 ![변환된 ts](https://user-images.githubusercontent.com/45552388/77293752-49a5aa00-6d26-11ea-933e-a3819cf94d3e.png)
 parcel bundler가 ts파일을 js파일로 변환시킨다.
 
-## Map project structure
+### Map project structure
 
 'src' Folder
 index.ts - Map.ts - User.ts - Company.ts
@@ -395,15 +395,15 @@ index.ts(소문자로 시작하는 파일) :
 - anytime you have a file that either serves as something like the index.tx file
   so come in root of your application where a file that exports plain objects, plain functions or constants.
 
-  ## Generating Random Data
+### Generating Random Data
 
-  위도, 경도 데이터를 random하게 만들어준다.
+위도, 경도 데이터를 random하게 만들어준다.
 
-  ```
-  npm install faker;
-  ```
+```
+npm install faker;
+```
 
-## Type Definition Files
+### Type Definition Files
 
 Typescript Code -> Type definition file -> JS Library
 
@@ -426,3 +426,17 @@ DefinitelyTypes-> Anytime you see that term they're talking about type definitio
 ```
 npm install @types/faker
 ```
+
+### Export Statements in Typescript
+
+```
+export const red = "red";
+import { red } from "./User";
+
+// default 방식
+export default "red";
+import red from "./User";
+```
+
+typescript world에서는 대개 default statement를 사용하지 않는다. {}여부가 헷갈리기 때문.
+그러나 third party modules은 예외(import faker from 'faker';)
