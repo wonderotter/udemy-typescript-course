@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/faker": "^4.1.10",
+    "@types/faker": "^4.1.11",
     "axios": "^0.19.1",
     "faker": "^4.1.0",
     "global": "^4.4.0",
