@@ -440,3 +440,38 @@ import red from "./User";
 
 typescript world에서는 대개 default statement를 사용하지 않는다. {}여부가 헷갈리기 때문.
 그러나 third party modules은 예외(import faker from 'faker';)
+
+### Defining a Company
+
+```
+import faker from 'faker';
+
+export class Company {
+  companyName: string;
+  catchPhrase: string;
+  // location property를 초기화한게 아니다
+  // location이 어떨지 typescript가 알려주는 것
+  location: {
+    lat: number;
+    lng: number;
+  };
+
+  constructor() {
+    this.companyName = faker.company.companyName();
+    this.catchPhrase = faker.company.catchPhrase();
+    // this.location.lat 방식으로 바로 값을 넣으려고 하면 error message를 받을 것이다.
+    // location은 constructor내에서 undefined이기 때문
+    this.location.lat = parseFloat(faker.address.latitude());
+    this.location.lng = parseFloat(faker.address.longitude());
+    /*
+    this.location = {
+      lat: parseFloat(faker.address.latitude()),
+      lng: parseFloat(faker.address.latitude())
+    };
+    */
+  }
+}
+```
+
+다음과 같이 error message를 받는다.
+![error](https://user-images.githubusercontent.com/45552388/77711042-3723bd00-7013-11ea-9e8d-760a596129d1.png)
