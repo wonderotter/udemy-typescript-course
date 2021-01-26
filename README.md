@@ -548,3 +548,23 @@ addMarker(mappable: Mappable): void{
 ```
 
 Mappable 인터페이스 -> 어떤 클래스가 addMarker의 argument가 될 수 있는지에 대한 가이드라고 말 할 수 있다.
+
+### Optional Implements Clauses
+
+```
+//in CustomMap.ts
+export interface Mappable{
+  location: {
+    lat: number;
+    lng: number;
+  };
+  markerContent(): string;
+}
+
+//in User.ts
+export class Company implements Mappable{
+  ...
+}
+```
+
+implements 절을 통해서 인터페이스를 구현하면서 타입스크립트가 클래스를 추가적으로 체크해준다.
