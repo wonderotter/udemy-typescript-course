@@ -522,3 +522,29 @@ addMarker(mappable: User | Company): void{
 
 타입스크립트는 User, Company의 공통 속성(location)을 찾아서 참조할 수 있게 한다. 속성이름과 내용이 모두 같아야함.
 그러나 이렇게 구성할 경우 method signature가 너무 커진다(mappable: User | Company | Park ...)
+
+### Implicit Type Checks
+
+```
+// in CustomMap.ts
+interface Mappable{
+  location: {
+    lat: number;
+    lng: number;
+  };
+}
+
+
+addMarker(mappable: Mappable): void{
+    new google.maps.Marker({
+      map: this.googleMap,
+      position: {
+        lat: mappable.location.lat,
+        lng: mappable.location.lng
+      }
+    })
+  }
+
+```
+
+Mappable 인터페이스 -> 어떤 클래스가 addMarker의 argument가 될 수 있는지에 대한 가이드라고 말 할 수 있다.
