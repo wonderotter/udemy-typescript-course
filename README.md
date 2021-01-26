@@ -475,3 +475,33 @@ export class Company {
 
 다음과 같이 error message를 받는다.
 ![error](https://user-images.githubusercontent.com/45552388/77711042-3723bd00-7013-11ea-9e8d-760a596129d1.png)
+
+### Google Maps Integration
+
+```
+npm install @types/googlemaps
+```
+
+This package contains type definitions for Google Maps JavaScript API -> ts파일에서 전역변수처럼 사용가능해짐.
+
+### Why Use Private Modifiers? Here's Why
+
+google map의 존재를 어떻게든지 다른 개발자들로부터 숨기는 것이 좋다.(모든 메소드를 CustomMap으로 wrap) -> 다른 개발자들이 프로젝트에 참여해서 구글맵 메소드를 건들면 앱이 깨질 수 있음.
+
+```
+export class CustomMap {
+  private googleMap: google.maps.Map;
+
+  constructor(divId: string){
+    this.googleMap = new google.maps.Map(document.getElementById(divId), {
+      zoom: 1,
+      center: {
+        lat: 0,
+        lng: 0
+      }
+    })
+  }
+}
+```
+
+private modifier를 써서 googleMap에 접근하지 못하게 한다. (안써줄 경우 public이 default).
