@@ -568,3 +568,24 @@ export class Company implements Mappable{
 ```
 
 implements 절을 통해서 인터페이스를 구현하면서 타입스크립트가 클래스를 추가적으로 체크해준다.
+
+## 섹션 10: More on Design Patterns
+
+### Configuring the TS Compiler
+
+- typescript compiler 환경설정법
+
+```
+tsc --init
+```
+
+- tsconfig.json파일이 생성됨.
+- outDir : "./build" -> 컴파일된 js파일이 저장되는 곳
+- rootDir : "./src" -> 컴파일할 ts 파일 두는 곳
+- tsc로 실행해보면 build로 잘 컴파일되는 것을 알 수 있다.
+
+```
+tsc -w
+```
+
+ts파일 변경할 때 마다 자동으로 컴파일해준다.
