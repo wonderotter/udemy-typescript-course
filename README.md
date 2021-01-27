@@ -608,3 +608,24 @@ npm install nodemon concurrently
     "start": "concurrently npm:start:*"
   }
 ```
+
+### Type Guards
+
+- type card is going to be a check on the type of this.collection
+
+```
+if(this.collection instanceof Array){
+ ...
+}
+```
+
+우리는 우리가 내부에서 다루고 있는 특정 유현 중 하나(number[] or string)에 대한 접근을 되찾기 위해 type guard를 사용할 수 있다.
+
+instanceof 연산자는 생성자의 prototype 속성이 객체의 프로토타입 체인 어딘가 존재하는지 판별합니다.
+
+- primitive type(원시 자료형)
+
+* typeof : Narrow type of a value to a primitive type -> 값의 좁은 타입(원시 자료형)
+  - number, string, boolean, symbol
+* instanceof: Narrow down every other type of value -> 타입의 축소
+  - Every other value that is created with a constructor function
