@@ -589,3 +589,22 @@ tsc -w
 ```
 
 ts파일 변경할 때 마다 자동으로 컴파일해준다.
+
+## Concurrent Compilation and Execution
+
+- automate the process of running every single time we make change.
+
+```
+npm init -y
+npm install nodemon concurrently
+```
+
+- package.json
+
+```
+"scripts": {
+    "start:build": "tsc -w",
+    "start:run": "nodemon build/index.js",
+    "start": "concurrently npm:start:*"
+  }
+```

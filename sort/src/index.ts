@@ -1,3 +1,7 @@
 console.log('hi there');
 
-console.log('heeeeeey');
+const hello = () => {
+  console.log('heeeey');
+}
+
+hello();
