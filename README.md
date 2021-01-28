@@ -724,3 +724,25 @@ print(): void{
 }
 }
 ```
+
+### Just...One...More...Fix...
+
+LinkedList sorting 코드
+
+```
+const linkedList = new LinkedList();
+linkedList.add(500);
+linkedList.add(10);
+linkedList.add(-10);
+linkedList.add(-2);
+linkedList.add(3);
+
+const sorter = new Sorter(linkedList);
+sorter.sort();
+linkedList.print();
+
+```
+
+-> 매번 Sorter 인스턴스를 만들어서 sorting하는 것 보다 해당 collection 클래스에서 sort 메소드를 호출하는것이 더 낫지 않을까?
+
+ex) new NumberCollection([72, -1, 29, 7]).sort();
