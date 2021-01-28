@@ -746,3 +746,189 @@ linkedList.print();
 -> 매번 Sorter 인스턴스를 만들어서 sorting하는 것 보다 해당 collection 클래스에서 sort 메소드를 호출하는것이 더 낫지 않을까?
 
 ex) new NumberCollection([72, -1, 29, 7]).sort();
+
+### Abstract with Inheritance
+
+Abstract Classes
+
+- Can't be used to create an object directly.
+- Only used as a parent class
+- Can contain real implementation for some methods
+- The implemented methods can refer to other methods that don't actually exist yet(we still have to provice names and types for the un-implemented methods).
+- Can make child classes promise to implement some other method.
+
+Abstract Class로 Refactoring
+
+Sorter.ts
+
+```
+export abstract class Sorter {
+  // customize할 메소드 구현체
+  abstract compare(leftIndex:number, rightIndex:number): boolean;
+  abstract swap(leftIndex: number, rightIndex:number): void;
+  abstract length: number;
+
+  sort(): void{
+    const { length } = this;
+
+    for(let i = 0; i < length; i++){
+      for(let j = 0; j < length - i - 1; j++){
+        if(this.compare(j, j+1)){
+          this.swap(j, j+1);
+        }
+      }
+    }
+  }
+}
+```
+
+NumbersCollection.ts
+
+```
+import { Sorter } from './Sorter';
+
+export class NumbersCollection extends Sorter{
+  constructor( public data: number[]) {
+    super();
+  }
+
+  get length(): number{
+    return this.data.length;
+  }
+
+  compare(leftIndex: number, rightIndex: number): boolean {
+    return this.data[leftIndex] > this.data[rightIndex];
+  }
+
+  swap(leftIndex: number, rightIndex: number): void{
+    const leftHand = this.data[leftIndex];
+    this.data[leftIndex] = this.data[rightIndex];
+    this.data[rightIndex] = leftHand;
+  }
+}
+```
+
+CharactersCollection.ts
+
+```
+import { Sorter } from './Sorter';
+
+export class CharacterCollection extends Sorter{
+  constructor(public data: string){
+    super();
+  }
+
+  get length(): number{
+    return this.data.length;
+  }
+
+  compare(leftIndex: number, rightIndex: number): boolean{
+    return this.data[leftIndex].toLowerCase() > this.data[rightIndex].toLowerCase();
+  }
+
+  swap(leftIndex:number, rightIndex: number): void{
+    const characters = this.data.split('');
+
+    const leftHand = characters[leftIndex];
+    characters[leftIndex] = characters[rightIndex];
+    characters[rightIndex] = leftHand;
+
+    this.data = characters.join().replace(/,/gi,"");
+  }
+}
+```
+
+LinkedList.ts
+
+```
+import { Sorter } from './Sorter';
+
+class Node{
+  next: Node | null = null; //default: null
+
+  constructor(public data: number){}
+}
+
+export class LinkedList extends Sorter{
+  head: Node | null = null;
+
+  add(data: number): void {
+    const node = new Node(data);
+
+    if(!this.head){
+      this.head = node;
+      return;
+    }
+
+    let tail = this.head;
+    while(tail.next){
+      tail = tail.next;
+    }
+
+    tail.next = node;
+  }
+
+  get length(): number {
+    if(!this.head){
+      return 0;
+    }
+
+    let length = 1;
+    let node = this.head;
+    while(node.next){
+      length ++;
+      node = node.next;
+    }
+
+    return length;
+  }
+
+  at(index: number) :Node{
+    if(!this.head){ // 데이터가 없을 때
+      throw new Error('Index out of bounds');
+    }
+
+    let counter = 0;
+    let node: Node | null = this.head;
+    while(node){
+      if(counter === index){
+        return node;
+      }
+
+      counter ++;
+      node = node.next;
+    }
+
+    throw new Error('Index out of bounds');
+  }
+
+  compare(leftIndex: number, rightIndex: number): boolean{
+    if(!this.head){
+      throw new Error('List is empty');
+    }
+
+    return this.at(leftIndex).data > this.at(rightIndex).data;
+  }
+
+  swap(leftIndex:number, rightIndex: number): void{
+    const leftNode = this.at(leftIndex);
+    const rightNode = this.at(rightIndex);
+
+    const leftHand = leftNode.data;
+    leftNode.data = rightNode.data;
+    rightNode.data = leftHand;
+  }
+
+  print(): void{
+    if(!this.head){
+      return;
+    }
+
+    let node: Node | null = this.head;
+    while(node){
+      console.log(node.data);
+      node = node.next;
+    }
+  }
+}
+```
