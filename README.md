@@ -951,10 +951,42 @@ Inheritance / Abstract Classes
 
 ## 섹션11. Reusable Code
 
+CSV Data -> Load -> Parse -> Analyze -> Report
+
 ### Type Definition Files - Again!
 
 다른 javascript Libaray처럼 nodejs standard library(fs, http, os)를 사용할때는 nodejs type definition file을 설치해야한다.
 
 ```
 npm install @types/node
+```
+
+### Reading CSV Files
+
+Load and Parse 단계
+
+코드
+
+```
+import fs from 'fs';
+
+const matches = fs.readFileSync("football.csv", {
+  encoding: 'utf-8'
+}).split('\n')
+.map((row: string): string[] => {
+  return row.split(',');
+});
+
+console.log(matches);
+
+```
+
+결과
+
+```
+[
+  [ '27/10/2018', 'Watford', 'Huddersfield', '3', '0', 'H', 'M Dean' ],
+[start:run]   [ '28/10/2018', 'Burnley', 'Chelsea', '0', '4', 'A', 'C Pawson' ],
+... 225 more items
+]
 ```
