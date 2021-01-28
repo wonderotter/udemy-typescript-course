@@ -96,7 +96,7 @@ Todo		{id:1, completed:true, title:'trash'}
 ### 왜 우리는 type에 대해 신경써야할까?
 
     - Types는 에러 코드를 분석하기 위한 typescript compiler에 의해 사용된다.
-    - Types를 사용하면 다른 엔지니어가 코드베이스에 어떤 값이 흐르고 있는지 이	해할 수 있다.
+    - Types를 사용하면 다른 엔지니어가 코드베이스에 어떤 값이 흐르고 있는지 이해할 수 있다.
 
 - 코드베이스: 특정 시스템, 애플리케이션, 컴포넌트 따위를 빌드할 때 사용되는 소스코드의 전체집합, 그것을 담은 저장소 -단일 저장소(ex: subversion)일수도 있고, 루트 커밋을 공유하는 여러 저장소(분산 cvs: ex) git)일수도 있음
 
@@ -474,6 +474,7 @@ export class Company {
 ```
 
 다음과 같이 error message를 받는다.
+
 ![error](https://user-images.githubusercontent.com/45552388/77711042-3723bd00-7013-11ea-9e8d-760a596129d1.png)
 
 ### Google Maps Integration
