@@ -948,3 +948,13 @@ Inheritance / Abstract Classes
 - 서로 다른 클래스 간에 계약 설정.
 - 우리가 객체의 정의를 세우려고 할때 사용
 - 강하게 클래스들을 결합시킨다.
+
+## 섹션11. Reusable Code
+
+### Type Definition Files - Again!
+
+다른 javascript Libaray처럼 nodejs standard library(fs, http, os)를 사용할때는 nodejs type definition file을 설치해야한다.
+
+```
+npm install @types/node
+```
