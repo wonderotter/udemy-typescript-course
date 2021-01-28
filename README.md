@@ -932,3 +932,19 @@ export class LinkedList extends Sorter{
   }
 }
 ```
+
+### Interfaces vs Abstract Classes
+
+Interfaces
+
+- 서로 다른 클래스 간에 계약 설정.
+  -> Sortable 인터페이스를 통해 charactersCollection, NumbersCollection 객체가 Sorter에서 sort할 수 있게 했었다.
+- 우리가 함께 사용하길 원하는 매우 다른 객체들을 가졌을 때 사용
+- 느슨한 결합을 촉진하다
+- 직접적인 의존성 없이 다른 클래스들을 함께 사용할 수 있게 한다.
+
+Inheritance / Abstract Classes
+
+- 서로 다른 클래스 간에 계약 설정.
+- 우리가 객체의 정의를 세우려고 할때 사용
+- 강하게 클래스들을 결합시킨다.
