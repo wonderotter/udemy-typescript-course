@@ -1038,3 +1038,23 @@ const enum MatchResult {
 ```
 
 -> Babel로 트랜스파일할 수 없다는 단점이 있다.
+
+### Type Assertions
+
+```
+ row[5] as MatchResult
+```
+
+type assertion : where you and i as the developers are trying to override type scripts default behavior or kind of tell typescript that we know what is going on here.
+
+### Describing a Row with a Tuple
+
+```
+// tuple
+type MatchData = [Date, string, string, number, number, MatchResult, string];
+
+class CsvFileReader{
+  data: MatchData[] = [];
+  ...
+}
+```
