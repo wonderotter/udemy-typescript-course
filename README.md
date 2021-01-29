@@ -1001,3 +1001,40 @@ enum MatchResult {
   Draw = 'D'
 };
 ```
+
+### When to Use Enums
+
+Enum이란?
+
+> 컴퓨터 프로그래밍에서 Enumerated Type(열거형 타입)을 줄여서 보통 Enum이라고 쓴다. 요소, 멤버라 불리는 명명된 값의 집합을 이루는 자료형이다. 열거자 이름들은 일반적으로 해당 언어의 상수 역할을 하는 식별자이다. - wikipeida -
+
+언제 Enum을 사용하면 좋은가?
+
+> 보통 도메인을 설계할 때 사용하는 인스턴스의 수가 정해져 있고 관련된어 처리할 수 있는 상수값이 여러개 존재할 때 Enum을 사용한다.
+
+TypeScript enum을 사용하지 않는 게 좋은 이유를 Tree-shaking 관점에서 소개합니다.
+https://engineering.linecorp.com/ko/blog/typescript-enum-tree-shaking/
+
+Tree-shaking시에 typescript 컴파일러는 IIFE(즉시 실행 함수)를 포함한 코드를 생성하기 때문에 Tree-shaking이 되지 않는다. Union Types > const enum을 추천
+
+```
+// Union Types(Union 타입은 여러 타입 중 하나 일 수 있는 값)
+const MatchResult = {
+  HomeWin: 'H',
+  AwayWin: 'A',
+  Draw: 'D'
+} as const;
+
+type MatchResult = typeof MatchResult[keyof typeof MatchResult];
+```
+
+```
+// const enum
+const enum MatchResult {
+  HomeWin = 'H',
+  AwayWin = 'A',
+  Draw = 'D'
+}
+```
+
+-> Babel로 트랜스파일할 수 없다는 단점이 있다.
