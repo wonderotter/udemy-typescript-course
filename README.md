@@ -991,3 +991,13 @@ console.log(matches);
 ... 225 more items
 ]
 ```
+
+### Using Enums
+
+```
+enum MatchResult {
+  HomeWin ='H',
+  AwayWin ='A',
+  Draw = 'D'
+};
+```
