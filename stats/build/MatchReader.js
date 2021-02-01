@@ -22,3 +22,4 @@ var MatchReader = /** @class */ (function () {
     };
     return MatchReader;
 }());
+exports.MatchReader = MatchReader;
