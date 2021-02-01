@@ -1084,3 +1084,57 @@ any를 이용하여 구현하면 저장하고 있는 자료의 타입이 모두 
   ex) MatchReader is a CsvFileReader -> MatchReader는 CsvFileReader에 속해있는 모든 다른 메소드와 속성을 갖고 있기 때문이다.
 - Composition: Characterized by a 'has a' relationship between two classes.
   -> MatchReader는 csvFileReader같은 외부 객체의 참조를 가졌다.
+
+상속보다 컴포지션을 더 선호해야한다.
+컴포지션은 한 클래스가 다른 클래스에서 상속하는 대신 다른 클래스를 포함하는 클래스 간의 관계 유형이다.
+더 유연하고 느슨하게 결합된 애플리케이션을 설계할 수 있이 때문에 상속보다 선호되어야한다.
+
+참고 url :https://www.koderhq.com/tutorial/typescript/composition/
+
+#### 상속 vs 구성 : 장단점
+
+상속이 나쁘다는 의미는 아닙니다. 개발자는 여전히 상속을 사용해야합니다.
+
+구성은 상속을 사용하기 전에 고려해야 할 대안 일뿐입니다.
+
+- 상속 장점 : 재사용 가능한 코드, 이해하기 쉬움
+- 상속 단점 : 밀접하게 결합되고 취약하며 남용 될 수 있음
+
+- 구성 장점 : 재사용 가능한 코드, 유연성, 느슨하게 결합 됨
+- 구성 단점 : 이해하기 어렵습니다.
+
+#### Summary : 기억해야 할 사항
+
+- 컴포지션은 상속하는 대신 다른 클래스 내부의 클래스를 인스턴스화하고 액세스합니다.
+- 모든 상속 관계를 구성으로 변환 할 수 있습니다.
+- 다른 클래스 내부에 설치되어있는 클래스는 호출 객체를 참조하기 위해 this 키워드를 가져야합니다.
+- 내부 개체에 대한 액세스는 여러 수준의 점 표기법을 통해 수행됩니다.
+- 우리는 일반적으로 상속보다 구성을 선호해야합니다.
+
+### Goal Moving Forward
+
+남은 issue
+
+```
+// in index.ts
+let manUnitedWins = 0;
+
+for(let match of matchReader.matches) {
+  if(match[1] === 'Man United' && match[5] === MatchResult.HomeWin){
+    manUnitedWins ++;
+  }else if(match[2] === 'Man United' && match[5] === MatchResult.AwayWin){
+    manUnitedWins ++;
+  }
+}
+
+console.log(`Man United won ${manUnitedWins} games`);
+```
+
+- 특정 팀의 이름을 딴 변수
+  -> manUnitedWins
+- 분석 유형이 고정되어 있다
+  -> match[1] === 'Man United'
+- 다른 format으로 결과를 보고할 수 없다
+  -> console.log(`Man United won ${manUnitedWins} games`);
+
+[refactor_diagram](./img/sh05.png)
