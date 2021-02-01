@@ -1061,4 +1061,12 @@ class CsvFileReader{
 
 ### Understanding Refactor #1
 
-![refactoring] (./img/sh01.png)
+![refactoring](./img/sh01.png)
+
+### Variable Types with Generics
+
+![generics](./img/generics.png)
+
+any를 이용하여 구현하면 저장하고 있는 자료의 타입이 모두 같지 않다는 문제점이 생긴다.
+
+제네릭은 어떠한 클래스 혹은 함수에서 사용할 타입을 그 함수나 클래스를 사용할 때 결정하는 프로그래밍 기법을 말한다.
