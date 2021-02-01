@@ -1074,3 +1074,13 @@ any를 이용하여 구현하면 저장하고 있는 자료의 타입이 모두 
 ### Interface-Based Approach
 
 ![interface-based-approach](./img/sh02.png)
+
+### Inheritance vs Composition
+
+![inheritance](./img/sh03.png)
+![composition](./img/sh04.png)
+
+- Inheritance: Characterized by an 'is a' relationship between two classes.
+  ex) MatchReader is a CsvFileReader -> MatchReader는 CsvFileReader에 속해있는 모든 다른 메소드와 속성을 갖고 있기 때문이다.
+- Composition: Characterized by a 'has a' relationship between two classes.
+  -> MatchReader는 csvFileReader같은 외부 객체의 참조를 가졌다.
