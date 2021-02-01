@@ -1058,3 +1058,7 @@ class CsvFileReader{
   ...
 }
 ```
+
+### Understanding Refactor #1
+
+![refactoring] (./img/sh01.png)
