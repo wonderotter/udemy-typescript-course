@@ -1198,3 +1198,19 @@ matchReader.load();
 const summary = Summary.winsAnalysisWithHtmlReport('Man United');
 summary.buildAndPrintReport(matchReader.matches);
 ```
+
+### Type Inference with Generics
+
+```
+class ArrayOfAnyting<T> {
+  constructor(public collection: T[]){}
+
+  get(index: number): T {
+    return this.collection[index];
+  }
+}
+
+const arr = new ArrayOfAnyting(['a','b']);
+```
+
+<string>을 적어주지 않아도 오류가 나지 않는다. -> type을 알아서 체크 = Type Inference
