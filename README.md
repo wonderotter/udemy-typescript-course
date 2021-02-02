@@ -1262,3 +1262,11 @@ printHousesOrCars<House>([new House(), new House()]);
 ```
 
 <T extends Printable>을 통해 제네릭 타입이 print메소드를 포함할 것임을 알려준다.
+
+## Let's build a Web Framework
+
+### Parcel Setup
+
+```
+npm install -g parcel-bundler
+```
