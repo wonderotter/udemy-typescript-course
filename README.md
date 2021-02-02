@@ -1230,3 +1230,35 @@ printAnything(['a', 'b', 'c']);
 printAnything(['a', 'b', 'c'])에서 에러가 나지 않지만 generic에 type annotation을 추가하는 것을 추천한다. -> 에러 잡는데 도움을 주기 때문
 
 printAnything<string>(['a', 'b', 'c']);
+
+### Generic Constraints
+
+```
+
+class Car {
+  print() {
+    console.log('I am a car');
+  }
+}
+
+class House {
+  print() {
+    console.log('I am a house');
+  }
+}
+
+interface Printable {
+  print(): void;
+}
+
+function printHousesOrCars<T extends Printable>(arr: T[]): void{
+  for(let i=0; i< arr.length; i++){
+    arr[i].print();
+  }
+}
+
+printHousesOrCars<Car>([new Car(),new Car()]);
+printHousesOrCars<House>([new House(), new House()]);
+```
+
+<T extends Printable>을 통해 제네릭 타입이 print메소드를 포함할 것임을 알려준다.
