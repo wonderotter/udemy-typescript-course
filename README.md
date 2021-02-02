@@ -1138,3 +1138,63 @@ console.log(`Man United won ${manUnitedWins} games`);
   -> console.log(`Man United won ${manUnitedWins} games`);
 
 [refactor_diagram](./img/sh05.png)
+
+### static method로 변경
+
+```
+// in Summary.ts
+export class Summary{
+  static winsAnalysisWithHtmlReport(team: string): Summary{
+    return new Summary(
+      new WinsAnalysis(team),
+      new HtmlReport()
+    )
+  }
+  constructor(public analyzer: Analyzer, public outputTarget: OuputTarget){}
+
+  buildAndPrintReport(matches: MatchData[]): void{
+    const output = this.analyzer.run(matches);
+    this.outputTarget.print(output);
+  }
+}
+
+// in MatchReader.ts
+export class MatchReader {
+  static fromCsv(filename: string): MatchReader{
+    return new MatchReader(new CsvFileReader(filename));
+  }
+
+  matches: MatchData[] = [];
+
+  constructor(public reader: DataReader) {}
+
+  load(): void{
+    this.reader.read();
+    this.matches = this.reader.data.map((row: string[]) :MatchData=> {
+      return [
+        dateStringToDate(row[0]),
+        row[1],
+        row[2],
+        parseInt(row[3]),
+        parseInt(row[4]),
+        row[5] as MatchResult,
+        row[6]
+      ];
+    });
+  }
+}
+```
+
+index.ts
+
+```
+import { MatchReader } from './MatchReader';
+import { Summary } from './Summary';
+
+//staic method로 접근
+const matchReader = MatchReader.fromCsv('football.csv')
+matchReader.load();
+
+const summary = Summary.winsAnalysisWithHtmlReport('Man United');
+summary.buildAndPrintReport(matchReader.matches);
+```
