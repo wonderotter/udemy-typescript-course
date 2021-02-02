@@ -1214,3 +1214,19 @@ const arr = new ArrayOfAnyting(['a','b']);
 ```
 
 <string>을 적어주지 않아도 오류가 나지 않는다. -> type을 알아서 체크 = Type Inference
+
+### Function Generics
+
+```
+function printAnything<T>(arr: T[]): void{
+  for(let i = 0; i < arr.length; i++){
+    console.log(arr[i]);
+  }
+}
+
+printAnything(['a', 'b', 'c']);
+```
+
+printAnything(['a', 'b', 'c'])에서 에러가 나지 않지만 generic에 type annotation을 추가하는 것을 추천한다. -> 에러 잡는데 도움을 주기 때문
+
+printAnything<string>(['a', 'b', 'c']);
