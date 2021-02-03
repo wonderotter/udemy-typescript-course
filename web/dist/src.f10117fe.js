@@ -1977,19 +1977,10 @@ var rootUrl = "http://localhost:3000/users";
 var User =
 /** @class */
 function () {
-  function User(data) {
-    this.data = data;
+  function User() {
     this.events = new Eventing_1.Eventing();
     this.sync = new Sync_1.Sync(rootUrl);
   }
-
-  User.prototype.get = function (propName) {
-    return this.data[propName];
-  };
-
-  User.prototype.set = function (update) {
-    Object.assign(this.data, update);
-  };
 
   return User;
 }();
