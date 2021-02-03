@@ -1309,3 +1309,44 @@ user.events.trigger('change');
 ### Refactoring Sync
 
 [sync_diagram](./img/sh06.png)
+
+### Optional Properties
+
+```
+tsc --init
+```
+
+tsconfig.json 파일을 만들어주면 Strict Type-Checking Option이 true로 설정된다.
+
+```
+import axios, { AxiosPromise } from 'axios';
+
+interface HasId {
+  id?: number;
+}
+
+export class Sync<T extends HasId> {
+  constructor(public rootUrl: string){}
+
+  fetch(id: number): AxiosPromise {
+    return axios.get(`${this.rootUrl}/${id}`);
+  }
+
+  save(data: T): AxiosPromise {
+    const { id }  =  data;
+
+    if(id){
+      //put -> update
+      return axios.put(`${this.rootUrl}/${id}`, data);
+    }else{
+      //post
+      return axios.post(this.rootUrl, data);
+    }
+  }
+}
+```
+
+tsconfig.json 파일 생성 전에 id에 마우스를 hover하면 number type만 표시되었는데,
+
+설정 파일 생성 후 number | undefined로 표시된다. -> optional property를 사용할 경우 strict mode로 진행하는 것이 좋다.
+(하지만 현재는 중요하지 않은 error를 띄우므로 개발 완료뒤 에러 처리)
