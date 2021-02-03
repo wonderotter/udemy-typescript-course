@@ -1350,3 +1350,10 @@ tsconfig.json 파일 생성 전에 id에 마우스를 hover하면 number type만
 
 설정 파일 생성 후 number | undefined로 표시된다. -> optional property를 사용할 경우 strict mode로 진행하는 것이 좋다.
 (하지만 현재는 중요하지 않은 error를 띄우므로 개발 완료뒤 에러 처리)
+
+### Two Important Rules
+
+1. In Typescript, strings can be types.
+2. In JS(and therefore TS), all object keys are strings
+
+=> The keys of an object can actually be a type as well.
