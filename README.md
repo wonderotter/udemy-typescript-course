@@ -1357,3 +1357,31 @@ tsconfig.json 파일 생성 전에 id에 마우스를 hover하면 number type만
 2. In JS(and therefore TS), all object keys are strings
 
 => The keys of an object can actually be a type as well.
+
+### An Advanced Generic Constraint
+
+```
+export class Attributes<T> {
+  constructor(private data: T) {}
+
+  get<K extends keyof T>(key: K): T[K]  {
+    return this.data[key];
+  }
+
+  set(update: T): void {
+    Object.assign(this.data, update);
+  }
+}
+```
+
+```
+interface UserProps {
+  id?: number;
+  name?: string;
+  age?: number;
+}
+```
+
+T가 UserProps라면 K는 T의 Key만 가능하다. -> id, name, age
+
+각 key값에 맞는 type return을 가능하게 한다. (T[k] = UserProp[id]..)
