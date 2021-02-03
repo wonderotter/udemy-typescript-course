@@ -1270,3 +1270,17 @@ printHousesOrCars<House>([new House(), new House()]);
 ```
 npm install -g parcel-bundler
 ```
+
+### Adding JSON Server
+
+설치방법
+
+```
+npm install -g json-server
+```
+
+실행방법
+
+```
+json-server -w db.json
+```

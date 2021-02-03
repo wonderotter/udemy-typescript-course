@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:db": "json-server -w db.json",
+    "start:parcel": "parcel index.html"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +13,7 @@
   "dependencies": {
     "@types/faker": "^4.1.11",
     "@types/googlemaps": "^3.30.20",
-    "axios": "^0.19.1",
+    "axios": "^0.19.2",
     "faker": "^4.1.0",
     "global": "^4.4.0",
     "parcel-bundler": "^1.12.4"
