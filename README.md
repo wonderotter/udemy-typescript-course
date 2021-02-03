@@ -1305,3 +1305,7 @@ user.events.on('change', () => {
 
 user.events.trigger('change');
 ```
+
+### Refactoring Sync
+
+[sync_diagram](./img/sh06.png)
