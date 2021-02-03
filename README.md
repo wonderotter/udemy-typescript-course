@@ -1284,3 +1284,24 @@ npm install -g json-server
 ```
 json-server -w db.json
 ```
+
+### Composition with Nested Objects
+
+Nested objects are the objects that are inside an another object
+
+```
+// in User.ts
+export class User {
+  public events: Eventing = new Eventing();
+...
+}
+```
+
+```
+// in index.ts
+user.events.on('change', () => {
+  console.log('change!');
+});
+
+user.events.trigger('change');
+```
