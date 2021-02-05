@@ -1369,7 +1369,7 @@ export class Attributes<T> {
   }
 
   set(update: T): void {
-    Object.assign(this.data, update);
+    Object.assign(this.data, update)=
   }
 }
 ```
@@ -1385,3 +1385,12 @@ interface UserProps {
 T가 UserProps라면 K는 T의 Key만 가능하다. -> id, name, age
 
 각 key값에 맞는 type return을 가능하게 한다. (T[k] = UserProp[id]..)
+
+### Composition is Delegation
+
+[Caller_diagram](./img/sh07.png)
+현재 기능들을 User클래스에서 Sync, Attributes등으로 분리해놓은 상태이므로 각 기능을 호출하려면,
+
+user.sync.save(), user.attributes.get('id') 방식으로 호출해야한다.
+
+이것은 번거롭고 복잡하므로 Caller라는 클래스를 만들어서 기능이 합쳐지게 만든다.
