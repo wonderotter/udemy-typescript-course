@@ -7,3 +7,6 @@ const on = user.on;
 on('change', () => {
   console.log('change');
 });
+
+user.trigger('change');
+console.log(user.get('name'));

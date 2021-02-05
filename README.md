@@ -1444,3 +1444,29 @@ export class User {
 const user = new User({ name: "new record", age: 11});
 user.on('change', () => {});
 ```
+
+여기서 this가 User로 잡고 있기 때문에 error가 뜨는데 arrow function으로 해결하면 된다.
+
+```
+export class Eventing {
+  events: { [key: string]: Callback[] } = {};
+
+  on = (eventName: string, callback: Callback): void  => {
+    const handlers = this.events[eventName] || [];
+    handlers.push(callback);
+    this.events[eventName] = handlers;
+  }
+
+  trigger = (eventName: string): void => {
+    const handlers = this.events[eventName];
+
+    if(!handlers || handlers.length === 0){
+      return;
+    }
+
+    handlers.forEach(callback => {
+      callback();
+    });
+  }
+}
+```
