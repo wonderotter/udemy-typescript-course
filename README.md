@@ -1393,7 +1393,7 @@ T가 UserProps라면 K는 T의 Key만 가능하다. -> id, name, age
 
 user.sync.save(), user.attributes.get('id') 방식으로 호출해야한다.
 
-이것은 번거롭고 복잡하므로 Caller라는 클래스를 만들어서 기능이 합쳐지게 만든다.
+이것은 번거롭고 복잡하므로 바로 호출할 수 있도록 구조를 변경해본다.
 
 ### Reminder on Accessors
 
@@ -1419,4 +1419,28 @@ console.log(person.fullName);
 
 ```
 firstname lastname
+```
+
+### Passthrough Methods
+
+```
+export class User {
+  ...
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
+}
+```
+
+```
+const user = new User({ name: "new record", age: 11});
+user.on('change', () => {});
 ```
