@@ -1445,7 +1445,7 @@ const user = new User({ name: "new record", age: 11});
 user.on('change', () => {});
 ```
 
-여기서 this가 User로 잡고 있기 때문에 error가 뜨는데 arrow function으로 해결하면 된다.
+여기서 this가 User로 잡고 있기 때문에 events undefined error가 뜨는데 arrow function으로 해결하면 된다.(Context Issue)
 
 ```
 export class Eventing {
