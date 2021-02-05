@@ -1394,3 +1394,29 @@ T가 UserProps라면 K는 T의 Key만 가능하다. -> id, name, age
 user.sync.save(), user.attributes.get('id') 방식으로 호출해야한다.
 
 이것은 번거롭고 복잡하므로 Caller라는 클래스를 만들어서 기능이 합쳐지게 만든다.
+
+### Reminder on Accessors
+
+get Accessors 사용법
+
+```
+// A quick reminder on accessors
+
+class Person {
+  constructor(public firstName: string, public lastName: string){}
+
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+
+const person = new Person('firstname', 'lastname');
+console.log(person.fullName);
+
+```
+
+결과
+
+```
+firstname lastname
+```
