@@ -1589,3 +1589,25 @@ user.on('change', () => {
 
 user.fetch();
 ```
+
+### Shortened Passthrough Methods
+
+```
+class Model<T extends HasId>{
+   constructor(
+    private attributes: ModelAttributes<T>,
+    private events: Eventing,
+    private sync: ApiSync<T>
+    ){}
+
+    on = this.events.on;
+    trigger = this.events.trigger;
+    get = this.attributes.get;
+
+    ...
+}
+```
+
+constructor shorten syntax를 사용하지 않으면 constructor 내부에 초기화한 필드나 메소드는 javascript로 컴파일할 경우 나중에 선언되기 때문에 오류가 날 수 있다.
+
+초기화하는 경우는 shorten syntax를 사용하도록 하자.
