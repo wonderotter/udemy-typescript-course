@@ -1,4 +1,6 @@
 import { AxiosPromise, AxiosResponse } from "axios";
+import { ApiSync } from "./ApiSync";
+import { Eventing } from "./Eventing";
 
 interface ModelAttributes<T> {
   set(value: T): void;
@@ -23,8 +25,8 @@ interface HasId{
 export class Model<T extends HasId> {
   constructor(
     private attributes: ModelAttributes<T>,
-    private events: Events,
-    private sync: Sync<T>
+    private events: Eventing,
+    private sync: ApiSync<T>
     ){}
 
     get on() {
