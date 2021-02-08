@@ -1470,3 +1470,122 @@ export class Eventing {
   }
 }
 ```
+
+### Final User Refactor
+
+```
+//in Model.ts
+import { AxiosPromise, AxiosResponse } from "axios";
+import { ApiSync } from "./ApiSync";
+import { Eventing } from "./Eventing";
+
+interface ModelAttributes<T> {
+  set(value: T): void;
+  getAll(): T;
+  get<K extends keyof T>(key: K): T[K];
+}
+
+interface Sync<T> {
+  fetch(id: number): AxiosPromise;
+  save(data: T): AxiosPromise;
+}
+
+interface Events {
+  on(eventName: string, callback: () => void): void;
+  trigger(eventName: string): void;
+}
+
+interface HasId{
+  id?: number;
+}
+
+export class Model<T extends HasId> {
+  constructor(
+    private attributes: ModelAttributes<T>,
+    private events: Eventing,
+    private sync: ApiSync<T>
+    ){}
+
+    get on() {
+      return this.events.on;
+    }
+
+    get trigger() {
+      return this.events.trigger;
+    }
+
+    get get() {
+      return this.attributes.get;
+    }
+
+    set(update: T): void {
+      this.attributes.set(update);
+      this.events.trigger('change');
+    }
+
+    fetch(): void{
+      const id = this.get('id');
+
+      if(typeof id !== 'number'){
+        throw new Error('Cannot fetch without an id');
+      }
+
+      this.sync.fetch(id).then((response: AxiosResponse):void => {
+        this.set(response.data);
+      });
+    }
+
+    save(): void{
+      this.sync.save(this.attributes.getAll())
+      .then((response: AxiosResponse): void => {
+        this.trigger('save');
+      })
+      .catch(() => {
+        this.trigger('error');
+      })
+    }
+}
+```
+
+```
+in User.ts
+import { Model } from './Model';
+import { Attributes } from './Attributes';
+import { ApiSync } from './ApiSync';
+import { Eventing } from './Eventing';
+
+export interface UserProps {
+  id?: number;
+  name?: string;
+  age?: number;
+}
+
+const rootUrl = "http://localhost:3000/users";
+
+export class User extends Model<UserProps>{
+  static buildUser(attrs: UserProps): User{
+    return new User(
+      new Attributes<UserProps>(attrs),
+      new Eventing(),
+      new ApiSync<UserProps>(rootUrl)
+    );
+  }
+}
+```
+
+### Model Wrapup
+
+```
+// in index.ts
+import { User } from './models/User';
+
+const user = User.buildUser({
+  id: 1
+});
+
+user.on('change', () => {
+  console.log(user);
+});
+
+user.fetch();
+```
