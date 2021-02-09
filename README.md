@@ -1618,3 +1618,103 @@ constructor shorten syntax를 사용하지 않으면 constructor 내부에 초�
 
 * DocumentFragment 노드를 생성해서 사용하면 라이브 DOM 트리 외부에 경량화된 문서 DOM을 만들 수 있다.
 * DocumentFragment는 마치 라이브 DOM 트리처럼 작동하되, 메모리상에서만 존재하는 빈 문서 템플릿으로 생각하면 된다.
+
+### Reusable View Logic
+
+[UserForm_composition](./img/sh08.png)
+
+bidirectional relationship -> usually generally a sign that maybe composition is not the best idea or at least the division of methods that we have between the two is not the best idea.
+
+-> composition is not the best solution here
+
+Inheritance is pretty straightforward solution here.
+
+[UserForm_inheritance](./img/sh09.png)
+
+### Extracting a View Class
+
+in View.ts
+
+```
+import { User } from '../models/User';
+
+export abstract class View {
+  constructor(public parent: Element, public model: User){
+    this.bindModel();
+  }
+
+  abstract eventsMap(): { [key: string]: () => void };
+  abstract template(): string;
+
+  bindModel(): void{
+    this.model.on('change', () => {
+      this.render();
+    });
+  }
+
+  bindEvents(fragment: DocumentFragment): void{
+    const eventsMap = this.eventsMap();
+
+    for (let eventKey in eventsMap){
+      const [eventName, selector] = eventKey.split(':');
+
+      fragment.querySelectorAll(selector).forEach(el => {
+        el.addEventListener(eventName, eventsMap[eventKey]);
+      });
+    }
+  }
+
+  render(): void{
+    this.parent.innerHTML = '';
+
+    const templateElement = document.createElement('template');
+    templateElement.innerHTML = this.template();
+
+    this.bindEvents(templateElement.content);
+
+    this.parent.append(templateElement.content);
+  }
+}
+```
+
+in UserForm.ts
+
+```
+import { View } from "./View";
+
+export class UserForm extends View{
+  eventsMap(): { [key: string]: () => void } {
+    return {
+      'click:.set-age': this.onSetAgeClick,
+      'click:.change-name': this.onSetNameClick
+    };
+  }
+
+  onSetAgeClick = (): void => {
+    this.model.setRandomAge();
+  }
+
+  onSetNameClick = (): void => {
+    const input = this.parent.querySelector('input');
+
+    if(input){
+      const name = input.value;
+
+      this.model.set({ name });
+    }
+  }
+
+  template(): string {
+    return `
+    <div class="form">
+      <h1>User Form</h1>
+      <p>User name: ${this.model.get('name')}</p>
+      <p>User age: ${this.model.get('age')}</p>
+      <input type="text" />
+      <button class="change-name">Change Name</button>
+      <button class="set-age">Set Random Age</button>
+    </div>
+    `
+  }
+}
+```
