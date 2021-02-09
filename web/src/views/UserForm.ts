@@ -9,8 +9,10 @@ export class UserForm {
     };
   }
 
-  onSetAgeClick(): void{
-    alert('button was clicked');
+  onSetAgeClick = (): void => {
+    this.model.setRandomAge();
+
+    this.render();
   }
 
   template(): string {
@@ -43,6 +45,7 @@ export class UserForm {
 
     this.bindEvents(templateElement.content);
 
+    this.parent.innerHTML = '';
     this.parent.append(templateElement.content);
   }
 }          

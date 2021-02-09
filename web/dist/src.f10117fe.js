@@ -2173,6 +2173,13 @@ function (_super) {
     });
   };
 
+  User.prototype.setRandomAge = function () {
+    var age = Math.round(Math.random() * 100);
+    this.set({
+      age: age
+    });
+  };
+
   return User;
 }(Model_1.Model);
 
@@ -2189,18 +2196,22 @@ var UserForm =
 /** @class */
 function () {
   function UserForm(parent, model) {
+    var _this = this;
+
     this.parent = parent;
     this.model = model;
+
+    this.onSetAgeClick = function () {
+      _this.model.setRandomAge();
+
+      _this.render();
+    };
   }
 
   UserForm.prototype.eventsMap = function () {
     return {
       'click:.set-age': this.onSetAgeClick
     };
-  };
-
-  UserForm.prototype.onSetAgeClick = function () {
-    alert('button was clicked');
   };
 
   UserForm.prototype.template = function () {
@@ -2229,6 +2240,7 @@ function () {
     var templateElement = document.createElement('template');
     templateElement.innerHTML = this.template();
     this.bindEvents(templateElement.content);
+    this.parent.innerHTML = '';
     this.parent.append(templateElement.content);
   };
 

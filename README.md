@@ -1611,3 +1611,10 @@ class Model<T extends HasId>{
 constructor shorten syntax를 사용하지 않으면 constructor 내부에 초기화한 필드나 메소드는 javascript로 컴파일할 경우 나중에 선언되기 때문에 오류가 날 수 있다.
 
 초기화하는 경우는 shorten syntax를 사용하도록 하자.
+
+### Adding Methods to the User
+
+- DocumentFragment
+
+* DocumentFragment 노드를 생성해서 사용하면 라이브 DOM 트리 외부에 경량화된 문서 DOM을 만들 수 있다.
+* DocumentFragment는 마치 라이브 DOM 트리처럼 작동하되, 메모리상에서만 존재하는 빈 문서 템플릿으로 생각하면 된다.
