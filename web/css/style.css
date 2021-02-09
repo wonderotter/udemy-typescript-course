@@ -1,0 +1,25 @@
+button {
+  border: none;
+  border-radius: 5px;
+  padding: 7px 10px;
+  background-color: #bde8fb;
+  outline: none;
+}
+
+button:hover {
+  background-color: #9ddaf5;
+}
+
+input[type='text'] {
+  padding: 5px;
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid #b1b0b0;
+}
+
+.form {
+  width: 450px;
+  padding: 20px;
+  border: dashed 3px #a7d0e2;
+  margin: 20px auto;
+}
