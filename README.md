@@ -1718,3 +1718,23 @@ export class UserForm extends View{
   }
 }
 ```
+
+### Extending with Generic Constraints
+
+View class는 결국 Model의 한 property만 필요하게 되는 것이 아니라 대부분을 필요로 하게 된다. 따라서 새로운 인터페이스를 만들어서 복붙하는 것보단 Model 클래스를 그대로 상속받는 것이 나은데, 이때 Model 클래스도 class Model<T extends HasId> 와 같이 제네릭으로 구현되어있다. 이러한 경우에는 다음과 같이 구현한다.
+
+in View.ts
+
+```
+export abstract class View<T extends Model<K>, K> {
+  ...
+}
+```
+
+in UserForm.ts
+
+```
+export class UserForm extends View<User, UserProps>{
+  ...
+}
+```
