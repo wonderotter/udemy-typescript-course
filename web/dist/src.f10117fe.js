@@ -2195,21 +2195,16 @@ function () {
 
   UserForm.prototype.eventsMap = function () {
     return {
-      'click:button': this.onButtonClick,
-      'mouseenter:h1': this.onHeaderHover
+      'click:.set-age': this.onSetAgeClick
     };
   };
 
-  UserForm.prototype.onButtonClick = function () {
-    alert('Hi there!');
-  };
-
-  UserForm.prototype.onHeaderHover = function () {
-    console.log('H1 cover hover');
+  UserForm.prototype.onSetAgeClick = function () {
+    alert('button was clicked');
   };
 
   UserForm.prototype.template = function () {
-    return "\n    <div>\n      <h1>User Form</h1>\n      <p>User name: " + this.model.get('name') + "</p>\n      <p>User age: " + this.model.get('age') + "</p>\n      <input type=\"text\"/><button>\uD074\uB9AD</button>\n    </div>\n    ";
+    return "\n    <div>\n      <h1>User Form</h1>\n      <p>User name: " + this.model.get('name') + "</p>\n      <p>User age: " + this.model.get('age') + "</p>\n      <input type=\"text\"/>\n      <button class=\"set-age\">Set Random Age</button>\n    </div>\n    ";
   };
 
   UserForm.prototype.bindEvents = function (fragment) {
