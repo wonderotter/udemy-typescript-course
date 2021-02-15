@@ -1786,3 +1786,125 @@ Repaint와 Reflow를 발생시키는 원인
   애니메이션이 들어간 요소의 display 속성을 position: absolute나 fixed로 지정하여 다른 요소에 영향이 없도록 하는것이 reflow 단계에서 연산시간이 줄어들 수 있다.
 
 출처: https://oyg0420.tistory.com/entry/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%9D%98-Reflow-%EC%99%80-Repaint#c -> 브라우저 원리 잘 설명되어있음 참고.
+
+### CollectionView Implementation
+
+[collectionView](./img/sh10.png)
+
+in Collection.ts
+
+```
+import axios, { AxiosResponse } from 'axios';
+import { Eventing } from "./Eventing";
+
+export class Collection<T, K> {
+  models: T[] = [];
+  events: Eventing = new Eventing();
+
+  constructor(
+    public rootUrl: string,
+    public deserialize: (json: K) => T
+    ) {}
+
+  get on(){
+    return this.events.on;
+  }
+
+  get trigger(){
+    return this.events.trigger;
+  }
+
+  fetch(): void{
+    axios.get(this.rootUrl)
+      .then((response: AxiosResponse) => {
+        response.data.forEach((value: K) => {
+          this.models.push(this.deserialize(value));
+        });
+        this.trigger('change');
+      });
+  }
+}
+```
+
+in CollectionView.ts
+
+```
+import { Collection } from "../models/Collection";
+
+export abstract class CollectionView<T, K>{
+  constructor(public parent: Element, public collection: Collection<T, K>){}
+
+  abstract renderItem(model: T, itemParent: Element): void;
+
+  render(): void{
+    this.parent.innerHTML = '';
+
+    const templateElement = document.createElement('template');
+
+    for(let model of this.collection.models){
+      const itemParent = document.createElement('div');
+      this.renderItem(model, itemParent);
+      templateElement.content.append(itemParent);
+    }
+
+    this.parent.append(templateElement.content);
+  }
+}
+```
+
+in UserList.ts
+
+```
+import { User, UserProps } from "../models/User";
+import { CollectionView } from "./CollectionView";
+import { UserShow } from "./UserShow";
+
+export class UserList extends CollectionView<User, UserProps>{
+  renderItem(model: User, itemParent: Element): void {
+    new UserShow(itemParent, model).render();
+  }
+}
+```
+
+in UserShow.ts
+
+```
+import { View } from './View';
+import { User, UserProps } from '../models/User';
+
+export class UserShow extends View<User, UserProps>{
+  template(): string {
+    return `
+    <div>
+      <h1>User Detail</h1>
+      <div>User Name: ${this.model.get('name')}</div>
+      <div>User Age: ${this.model.get('age')}</div>
+    </div>
+    `;
+  }
+}
+```
+
+in index.ts
+
+```
+import { Collection } from "./models/Collection";
+import { User, UserProps } from "./models/User";
+import { UserList } from "./views/UserList";
+
+const users = new Collection("http://localhost:3000/users", (json: UserProps) => {
+  return User.buildUser(json);
+});
+
+users.on('change', () => {
+  const root = document.getElementById("root");
+
+  if(root){
+    new UserList(root, users).render();
+  }
+});
+users.fetch();
+```
+
+결과!
+[collectionView_result](./img/sh11.png);
