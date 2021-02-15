@@ -1738,3 +1738,51 @@ export class UserForm extends View<User, UserProps>{
   ...
 }
 ```
+
+### <template>: 콘텐츠 템플릿 요소
+
+- HTML <template> 요소는 페이지를 불러온 순간 즉시 그려지지는 않지만, 이후 JavaScript를 사용해 인스턴스를 생성할 수 있는 HTML 코드를 담을 방법을 제공
+- 템플릿은 콘텐츠 조각을 나중에 사용하기 위해 담아놓는 컨테이너로 생각하세요. 페이지를 불러오는 동안 구문 분석기가 <template> 요소의 콘텐츠도 읽기는 하지만, 이는 유효성을 검증하기 위함이며 렌더링 하기 위함은 아닙니다.
+- 다만, HTMLTemplateElement는 읽기 전용 content 속성을 가집니다. content는 템플릿이 담고 있는 DOM 하위 트리를 나타내는 DocumentFragment입니다.
+
+#### Javascript 성능개선 참고 - Document​Fragment
+
+- reflow: 어떠한 액션이나 이벤트에 의해 DOM 요소의 크기나 위치등을 변경하면 해당 노드의 하위 노드와 상위의 노드들을 포함하여 Layout 단계(브라우저의 Viewport내에서 생성된 Render Tree의 각각의 노드들의 위치와 크기를 계산, 즉 생상된 Render Tree 노드들이 가지고 있는 스타일과 속성에 따라서 브라우저 화면의 어느 위치에 어느 크기로 출력될지 계산하는 단계)를 다시 수행하게 된다. 즉, 변경하려는 특정 요소의 위치와 크기뿐만 아니라 연관된 요소들의 위치와 크기도 재계산을 하기 때문에 브라우저의 퍼포먼스를 저하시키는 요인이다.
+
+reflow를 줄이기 위한 개선방법으로 DocumentFragment를 활용한다. DocumentFragment는 부모가 없는 아주 작은 document객체를 나타낸다. 노드로 구성된 문서 구조의 일부를 저장한다.
+
+중요한 차이점은 활성화된 문서 트리 구조의 일부가 아니기 때문에 fragment를 변경해도 문서에는 영향을 미치지 않으며 성능에도 영향이 없다
+
+사용법
+
+- DocumentFragment를 생성하고, 그 안에서 DOM 하위 트리를 조립한 다음, appendChild()나 insertBefore()와 같은 Node 인터페이스 메서드를 사용하여 DOM에 삽입
+- 이렇게 하면 DocumentFragment의 노드들이 DOM으로 이동되고 빈 DocumentFragment만 남게 됩니다. 모든 노드가 한 번에 문서에 삽입되기 때문에 노드를 개별로 하나씩 삽입할 때마다 리플로우와 렌더링을 해주는 대신 단 한 번의 리플로우와 렌더링만 발생
+- <template> 요소는 HTMLTemplateElement.content 속성에 DocumentFragment를 포함하고 있습니다.
+
+#### 브라우저 성능 개선
+
+Repaint와 Reflow를 발생시키는 원인
+
+- 브라우저 창 크기 변화
+- 폰트 크기의 변화
+- 스크롤 하는 경우
+- 클래스 속성 조작
+
+* Reflow를 최소화 하는 방법
+
+- DOM Tree의 Depth를 최소화한다
+- javascript를 통해 스타일 변화를 주어야 할 경우, 가급적 한 번에 처리
+  ```
+  e.target.style.width = "150px"; // reflow 발생
+  e.target.style.height = "300px"; // reflow 발생
+  ```
+  다음과 같이 변경
+  ```
+  e.target.style = 'width: 150px; height: 300px';
+  ```
+- CSS 하위 선택자는 필요한 만큼만 정리하는 것이 비용이 절감됨.
+- 애니메이션이 있는 요소는 position: absolute 또는 position: fixed로 지정하는 것이 좋다.
+  애니메이션은 요소의 크기 또는 위치가 변경되는 것을 의미하는데, 요소가 변경될 때 마다 주위 요소들은 영향을 받게 위치나 크기가 변경될 수 있다. 따라서 reflow가 발생되고 변경된 요소에 의한 나머지 요소들도 다시 위치를 재계산하게 되어 결국 시간이 늘어나게됨.
+  애니메이션이 들어간 요소의 display 속성을 position: absolute나 fixed로 지정하여 다른 요소에 영향이 없도록 하는것이 reflow 단계에서 연산시간이 줄어들 수 있다.
+
+출처: https://oyg0420.tistory.com/entry/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EC%9D%98-Reflow-%EC%99%80-Repaint#c -> 브라우저 원리 잘 설명되어있음 참고.

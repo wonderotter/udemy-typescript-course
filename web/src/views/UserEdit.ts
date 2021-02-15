@@ -1,6 +1,5 @@
 import { View } from './View';
 import { User, UserProps } from '../models/User';
-import { UserShow } from './UserShow';
 
 export class UserEdit extends View<User, UserProps>{
   template(): string {
@@ -10,5 +9,13 @@ export class UserEdit extends View<User, UserProps>{
         <div class="user-form"></div>
       </div>
     `;
+  }
+
+  //override
+  regionsMap(): { [key:string]: string }{
+    return {
+      userShow: '.user-show',
+      userForm: '.user-form'
+    };
   }
 }
