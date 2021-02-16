@@ -2069,3 +2069,16 @@ Request, Response, Router등이 가진 property나 메소드를 알려주지만 
    (app.use(bodyParser.urlencoded({extended: true}))를 삭제해도 오류가 안뜸)
 2. 가끔 잘못된 안내를 한다.
    middleware의 body를 보면 body: any라고 되어있다. middleware를 쓰지 않는 경우에는 req.body는 존재하지 않는데 any로 타입을 정의했으므로 오류가 나지 않는다.
+
+### Issues with Type Definition Files
+
+단점
+
+1. Type definition 파일들로 정확히 JS로 어떻게 구현되어 있는지 알 수 없다.(ex)middleware)
+2. Type definition 파일들이 항상 정확하게 제공되는 것이 아니다.
+3. server로 가는 input들(Type definition file로 악화된)이 있는지, 정확한 type인지 보장되지 않는다. 즉, 양식 제출을받을 때 실제로 제공되지 않았을 수도 있는 속성 집합이 있을 수 도 있다.
+
+장점
+
+1. Typescript로 이러한 유형의 문제를 해결하면 더 나은 코드를 작성할 수 있다.
+   (type definition file 수정)
