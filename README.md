@@ -1918,3 +1918,36 @@ TS with JS Libs
 - 가능한 경우 보통 기본 type annotation을 추가하여 사용
 - TS와 함께 lib를 사용하기 위한 helper를 갖고있는 TS adapter library를 사용
 - TS class들을 같이 사용하기 위해서 너의 lib을 비틀기(전환)
+
+### Project Setup
+
+```
+npm init -y
+```
+
+```
+tsc --init
+```
+
+```
+npm install concurrently nodemon
+```
+
+//tsconfig.json
+
+```
+     "outDir": "./build",                        /* Redirect output structure to the directory. */
+     "rootDir": "./src",
+```
+
+//package.json
+
+```
+"script": {
+  "start:build": "tsc -w",
+  "start:run": "nodemon build/index.js",
+  "start": "concurrently npm:start:*"
+}
+```
+
+npm start실행뒤 처음에는 오류가 나오는데 종료하고 다시 실행시키면 된다.
