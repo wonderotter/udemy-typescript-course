@@ -1951,3 +1951,37 @@ npm install concurrently nodemon
 ```
 
 npm start실행뒤 처음에는 오류가 나오는데 종료하고 다시 실행시키면 된다.
+
+### Basic Routes with Express
+
+```
+npm install express body-parser cookie-session
+```
+
+install type definition file
+
+```
+npm install @types/express @types/body-parser @types/cookie-session
+```
+
+index.ts
+
+```
+import express, { Request, Response } from 'express';
+
+const app = express();
+
+app.get('/', (req: Request, res: Response) => {
+  res.send(`
+    <div>
+      <h1>Hi There!</h1>
+    </div>
+  `);
+});
+
+const port:number = 5000;
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
+});
+```
