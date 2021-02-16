@@ -2035,3 +2035,37 @@ router.post('/login', (req: Request, res: Response) => {
   res.send(email + password);
 });
 ```
+
+### Why Doesn't Express Play Nicely with TS?
+
+BodyParser MiddleWare 동작 과정
+[express_bodyparser](./img/sh12.png)
+
+express에 있는 middleware는 request나 response 객체를 받는 함수다.
+또한 다른 middleware가 없다면 next function((req: Request, res: Response) => {
+const { email, password } = req.body;
+res.send(email);
+} 에서 () => {} 함수를 nextFunction 이라 한다.)request handler가 된다.
+middleware의 목적은 들어오는 request와 나가는 response를 점검하고 처리하는것.
+
+typescript의 가장 중요한 역할은 객체가 가진 다른 properties를 이해하는 것
+
+\*\* The job of a middleware is to take in some object requests and response and add, remove or change properties.
+-> That is 100 percent counterproductive(역효과) to what typescript is doing.
+middleware that we are using are implemented in javascript and that means that typescript has no idea, no clue whatsoever what properties are being added or removed.
+
+Typescript World -> Type Definition File -> Javascript World
+
+Express library에는 Request, Response, Router 라고 불리는 type 즉 객체가 있다.
+Request, Response, Router등이 가진 property나 메소드를 알려주지만 다른 type들(CookieOptions, Handler, Send)에 대한 타입스크립트나 이 함수들 안에 추가 될지 모르는 여러가지 속성들을 보는 것을 의미하는것이 아니다.
+
+이 함수들안에 어떤 일이 일어나는지에 대한 정보를 포함하고 있지 않다. 따라서 가장 중요한 문제는 우리가 type definition 파일을 가지고 있음에도 불구하고 다른 객체들에게 있는 다른 속성들에게 추가, 수정, 삭제 등 무엇이든지 가능하다는 것이다.
+
+-> middleware가 자바스크립트로 써져있기 때문에 무슨일이 벌어지는지 이해하기 어렵다
+
+- 문제점
+
+1. bodyparser는 Request 객체위에 추가되는데 typescript는 해당일을 모른다.
+   (app.use(bodyParser.urlencoded({extended: true}))를 삭제해도 오류가 안뜸)
+2. 가끔 잘못된 안내를 한다.
+   middleware의 body를 보면 body: any라고 되어있다. middleware를 쓰지 않는 경우에는 req.body는 존재하지 않는데 any로 타입을 정의했으므로 오류가 나지 않는다.
