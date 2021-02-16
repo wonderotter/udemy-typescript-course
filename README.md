@@ -1985,3 +1985,31 @@ app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 ```
+
+### Using an Express Router
+
+routes/loginRoutes
+
+```
+import { Router, Request, Response } from 'express';
+
+const router = Router();
+
+router.get("/", (req: Request, res: Response) => {
+  res.send('hi there');
+});
+
+export { router };
+```
+
+index.ts
+
+```
+import express from 'express';
+import { router } from './routes/loginRoutes';
+
+const app = express();
+
+app.use(router);
+
+```

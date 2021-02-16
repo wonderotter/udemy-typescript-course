@@ -1,16 +1,11 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import { router } from './routes/loginRoutes';
 
 const app = express();
 
-app.get('/', (req: Request, res: Response) => {
-  res.send(`
-    <div>
-      <h1>Hi There!</h1>
-    </div>
-  `);
-});
+app.use(router);
 
-const port:number = 5000;
+const port = 5000;
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
