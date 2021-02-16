@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
 
+
 // Request의 기능을 모두 가져오고 잘못된 타입만 오버라이드한다.
 interface RequestWithBody extends Request{
   //override
@@ -25,12 +26,15 @@ router.get("/login", (req: Request, res: Response) => {
 });
 
 router.post('/login', (req: RequestWithBody, res: Response) => {
-  const {email} = req.body;
+  const { email, password } = req.body;
 
-  if(email){ // type guard
-    res.send(email.toUpperCase());
+  if(email && password && email === 'hi@hi.com' && password === 'password'){
+    // mark this person as logged in
+    req.session = { loggedIn: true};
+    //redirect them to the root route
+    res.redirect('/');
   }else{
-    res.send('You must provide an email');
+    res.send('Invalid email or password');
   }
 
 });

@@ -2127,3 +2127,61 @@ router.post('/login', (req: RequestWithBody, res: Response) => {
 
 export { router };
 ```
+
+### Wiring Up Sessions
+
+cookie-session > index.d.ts
+
+```
+declare namespace Express {
+    interface Request extends CookieSessionInterfaces.CookieSessionRequest {}
+}
+```
+
+- You're using cookie session with Express they are finding the interface request inside of Express and they are saying that that request interface is going to extend from cookies session request.
+- 당신은 cookie session을 Express와 사용할 거라고 알려주고 Express의 Request를 찾을 것이다.
+- Request interface는 CookieSessionRequest로부터 상속받는다는 것을 말하고 있다.
+  -> 이것은 cookie-session type definition file이 우리가 부가적인 속성을 추가하길 원하는 Request interface를 찾으라는 뜻
+
+```
+interface CookieSessionRequest {
+        /**
+         * Represents the session for the given request.
+         */
+        session?: CookieSessionObject | null;
+
+        /**
+         * Represents the session options for the current request. These options are a shallow clone of what was provided at middleware construction and can be altered to change cookie setting behavior on a per-request basis.
+         */
+        sessionOptions: CookieSessionOptions;
+    }
+```
+
+- CookieSessionObject
+
+```
+  interface CookieSessionObject {
+        /**
+         * Is true if the session has been changed during the request.
+         */
+        isChanged?: boolean;
+
+        /**
+         * Is true if the session is new.
+         */
+        isNew?: boolean;
+
+        /**
+         * Determine if the session has been populated with data or is empty.
+         */
+        isPopulated?: boolean;
+
+        [propertyName: string]: any;
+    }
+```
+
+- [propertyname: string]: any;
+
+  -> bodyparser에서는 직접 썼어야하는데 cookieSession에서는 이미 다 정의되어있다.
+
+- Express와 bodyparser와 함께 사용가능하도록 파일 만들어져았음.
