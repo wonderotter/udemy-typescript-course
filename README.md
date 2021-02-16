@@ -2185,3 +2185,9 @@ interface CookieSessionRequest {
   -> bodyparser에서는 직접 썼어야하는데 cookieSession에서는 이미 다 정의되어있다.
 
 - Express와 bodyparser와 함께 사용가능하도록 파일 만들어져았음.
+
+* 사용방법
+
+```
+req.session = { loggedIn: true};
+```
