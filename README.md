@@ -1908,3 +1908,13 @@ users.fetch();
 
 결과!
 [collectionView_result](./img/sh11.png);
+
+## Express + Typescript Integration
+
+### App Overview
+
+TS with JS Libs
+
+- 가능한 경우 보통 기본 type annotation을 추가하여 사용
+- TS와 함께 lib를 사용하기 위한 helper를 갖고있는 TS adapter library를 사용
+- TS class들을 같이 사용하기 위해서 너의 lib을 비틀기(전환)
