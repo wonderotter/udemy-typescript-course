@@ -2013,3 +2013,25 @@ const app = express();
 app.use(router);
 
 ```
+
+### Parsing Form Bodies
+
+//index.ts
+
+```
+import bodyParser from 'body-parser';
+...
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(router);
+```
+
+//loginRoutes.ts
+
+```
+router.post('/login', (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  res.send(email + password);
+});
+```
