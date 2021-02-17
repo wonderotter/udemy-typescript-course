@@ -2213,3 +2213,12 @@ router.get('/', (req: Request, res: Response) => {
   }
 });
 ```
+
+### Logging Out
+
+```
+router.get('/logout', (req: Request, res: Response) => {
+  req.session = undefined;
+  res.redirect('/');
+});
+```
