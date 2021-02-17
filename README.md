@@ -2347,3 +2347,82 @@ PropertyDescriptor: an object that has some configuration options around a prope
 [property_descriptor_for_methods](./img/sh14.png)
 
 [property_descriptor_result](./img/sh15.png)
+
+### Wrapping Methods with Descriptors
+
+```
+class Boat {
+  color: string = 'red';
+
+  get formattedColor(): string {
+    return `This boat color is ${this.color}`;
+  }
+
+  @logError
+  pilot(): void{
+    throw new Error();
+  }
+}
+
+function logError(target: any, key: string, desc: PropertyDescriptor): void {
+  const method = desc.value;
+
+  desc.value = function() {
+    try{
+      method();
+    }catch(e){
+      console.log('Oops, Boat was sunk');
+    }
+  }
+}
+
+new Boat().pilot();
+```
+
+결과
+
+```
+Oops, Boat was sunk
+```
+
+### Decroator Factories
+
+customize decorator
+
+```
+class Boat {
+  color: string = 'red';
+
+  get formattedColor(): string {
+    return `This boat color is ${this.color}`;
+  }
+
+  @logError('Oops boat was sunk in ocean')
+  pilot(): void{
+    throw new Error();
+  }
+}
+
+function logError(errorMessage: string){
+  return function (target: any, key: string, desc: PropertyDescriptor): void {
+    const method = desc.value;
+
+    desc.value = function() {
+      try{
+        method();
+      }catch(e){
+        console.log(errorMessage);
+      }
+    }
+  }
+}
+
+
+new Boat().pilot();
+```
+
+결과
+
+```
+Oops boat was sunk in ocean
+```
