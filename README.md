@@ -2326,3 +2326,13 @@ ts-node decorators.ts로 실행
 Target: { pilot: [Function (anonymous)] }
 Key: pilot
 ```
+
+### Details on Decorators
+
+Decorators on a property, method, accessor(getter, setter)
+
+- First argument is the prototype of the object.
+- Second argument is the key of the property/method/accessor on the object.
+  -> accessors는 이제 포함 안됨.
+- Third argument is the property descriptor.
+- Decorators are applied when the code for this class is ran(not when an instance is created)
