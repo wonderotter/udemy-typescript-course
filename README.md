@@ -2336,3 +2336,14 @@ Decorators on a property, method, accessor(getter, setter)
   -> accessors는 이제 포함 안됨.
 - Third argument is the property descriptor.
 - Decorators are applied when the code for this class is ran(not when an instance is created)
+
+### Property Descriptors
+
+PropertyDescriptor: an object that has some configuration options around a property defined on an object.
+-> configure a property to another object.
+
+- typescript 특징이 아니라 es6
+
+[property_descriptor_for_methods](./img/sh14.png)
+
+[property_descriptor_result](./img/sh15.png)
