@@ -2440,3 +2440,57 @@ function testDecorator(target:any, key:string): void{
 - Boat의 color 속성같은 경우는 javascript에서 constructor에 정의된다.
   Decorators는 클래스가 정의될 때 같이 실행되기 때문에 decorator는 절대 constructor 접근 불가.
   따라서 target.color처럼 접근하려하면 undefined가 출력된다.
+
+### More on Decorators
+
+```
+@classDecorator
+class Boat {
+  //@testDecorator
+  color: string = 'red';
+
+  //@testDecorator
+  get formattedColor(): string {
+    return `This boat color is ${this.color}`;
+  }
+
+  @logError('Oops boat was sunk in ocean')
+  pilot(@parameterDecorator speed:string, @parameterDecorator generateWake:boolean): void{
+    if(speed === 'fast'){
+      console.log('swish');
+    }else{
+      console.log('nothing');
+    }
+    throw new Error();
+  }
+}
+
+function logError(errorMessage: string){
+  return function (target: any, key: string, desc: PropertyDescriptor): void {
+    const method = desc.value;
+
+    // desc.value => method
+    desc.value = function() {
+      try{
+        method();
+      }catch(e){
+        console.log(errorMessage);
+      }
+    }
+  }
+}
+
+
+function testDecorator(target: any, key: string): void{
+  console.log(key);
+}
+
+function parameterDecorator(target: any, key: string, index: number){
+  console.log('key:', key);
+  console.log('index:', index);
+}
+
+function classDecorator(constructor: typeof Boat){
+  console.log(constructor);
+}
+```
