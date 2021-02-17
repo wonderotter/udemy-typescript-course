@@ -14,11 +14,11 @@ router.get("/login", (req: Request, res: Response) => {
     <form method="POST">
       <div>
         <label>Email</label>
-        <input name="email"/>
+        <input name="email" autocomplete="username"/>
       </div>
       <div>
         <label>password</label>
-        <input type="password" name="password" />
+        <input type="password" name="password" autocomplete="current-password"/>
       </div>
       <button type="submit">Submit</button>
     </form>
@@ -37,6 +37,24 @@ router.post('/login', (req: RequestWithBody, res: Response) => {
     res.send('Invalid email or password');
   }
 
+});
+
+router.get('/', (req: Request, res: Response) => {
+  if(req.session && req.session.loggedIn){
+    res.send(`
+      <div>
+        <p>You are logged in</p>
+        <a href="/logout">Logout</a>
+      </div>
+    `);
+  }else{
+    res.send(`
+      <div>
+        <p>You are not logged in</p>
+        <a href="/login">Login</a>
+      </div>
+    `);
+  }
 });
 
 export { router };
