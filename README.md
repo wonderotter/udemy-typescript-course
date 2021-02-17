@@ -2281,3 +2281,48 @@ class Boat {
 
 * Class는 객체를 생성하기 위한 템플릿입니다.
 * 클래스는 데이터와 이를 조작하는 코드를 하나로 추상화합니다. 자바스크립트에서 클래스는 프로토타입을 이용해서 만들어졌지만 ES5의 클래스 의미와는 다른 문법과 의미를 가집니다.
+
+### Decorators in Typescript
+
+```
+tsc --init
+```
+
+tsconfig.json
+
+```
+    /* Experimental Options */
+     "experimentalDecorators": true, /* Enables experimental support for ES7 decorators. */
+     "emitDecoratorMetadata": true,  /* Enables experimental support for emitting type metadata for decorators. */
+```
+
+decorators.ts
+
+```
+class Boat {
+  color: string = 'red';
+
+  get formattedColor(): string {
+    return `This boat color is ${this.color}`;
+  }
+
+  @testDecorator
+  pilot(): void{
+    console.log('swish');
+  }
+}
+
+function testDecorator(target: any, key: string): void {
+  console.log('Target:', target);
+  console.log('Key:', key);
+}
+```
+
+ts-node decorators.ts로 실행
+
+실행결과
+
+```
+Target: { pilot: [Function (anonymous)] }
+Key: pilot
+```
