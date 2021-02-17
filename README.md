@@ -2222,3 +2222,62 @@ router.get('/logout', (req: Request, res: Response) => {
   res.redirect('/');
 });
 ```
+
+### Prototypes Reminder
+
+ES 2015 Classes + Typescript Classes => Don't really exist in Javascript
+
+자바스크립트에 있는 클래스는 prototypal inheritance에 대한 syntatic suagar이다.
+
+- syntatic suagar: 인간이 코드를 더 쉽게 읽고 쓸 수 있도록 컴퓨터 언어 구문이 변형된 것이지만 기능이나 표현은 바뀌지 않는것.
+  ex) [1,2,3,4,5] = 1:2:3:4:5:[]
+
+* Javascript 클래스는 실제로 존재하지 않는다.
+* 틀래스는 단지 자바, C# 또는 다른 객체지향프로그래밍 또는 클래스 기반 언어로 작업하는 엔지니어들을 위해 상속 및 객체와의 작업을 더 쉽게 하기 위해 추가되었지만 자바스크립트에서는 실제 클래스에 대한 개념이 실제로 구현되지 않았다.
+* 대신 ES2015 클래스나 typescript class를 쓸때 뒤에서는 상속 시스템의 prototype을 사용하여 javascript로 실행된다.
+
+ts
+
+```
+class Boat {
+  color: string = 'red';
+
+  pilot(): void {
+    console.log('swish');
+  }
+}
+```
+
+js(강의)
+
+```
+var Boat = (function(){
+  function Boat(){
+    this.color = 'red';
+  }
+
+  Boat.prototype.pilot = function() {
+    console.log('swish');
+  };
+
+  return Boat;
+}());
+```
+
+js(현재)
+
+```
+class Boat {
+    constructor() {
+        this.color = 'red';
+    }
+    pilot() {
+        console.log('swish');
+    }
+}
+```
+
+- MDN javascript Classes
+
+* Class는 객체를 생성하기 위한 템플릿입니다.
+* 클래스는 데이터와 이를 조작하는 코드를 하나로 추상화합니다. 자바스크립트에서 클래스는 프로토타입을 이용해서 만들어졌지만 ES5의 클래스 의미와는 다른 문법과 의미를 가집니다.
