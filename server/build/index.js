@@ -7,11 +7,14 @@ var express_1 = __importDefault(require("express"));
 var loginRoutes_1 = require("./routes/loginRoutes");
 var body_parser_1 = __importDefault(require("body-parser"));
 var cookie_session_1 = __importDefault(require("cookie-session"));
+var AppRouter_1 = require("./AppRouter");
+require("./controllers/LoginController");
 var app = express_1.default();
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(cookie_session_1.default({ keys: ['sdsdfsdfs'] }));
 app.use(loginRoutes_1.router);
-var port = 5000;
+app.use(AppRouter_1.AppRouter.getInstance());
+var port = 3000;
 app.listen(port, function () {
     console.log("Listening on port " + port);
 });

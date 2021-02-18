@@ -2535,3 +2535,195 @@ function printMetaData(target: typeof Plane){
 ```
 HI THERE
 ```
+
+### The 'get', 'controller' Decorator
+
+singleton pattern: 필요에 의해 단 하나의 객체만을 만들 때 사용
+
+특징
+
+- 객체 자체에는 접근이 불가능해야함
+- 객체에 대한 접근자(비공개 멤버: closure)를 사용해 실제 객체를 제어할 수 있다
+- 객체는 단 하나만 만들어지며, 해당 객체를 공유함
+
+AppRouter.ts
+
+```
+import express from 'express';
+
+// singleton pattern
+export class AppRouter {
+  private static instance: express.Router;
+
+  static getInstance(): express.Router {
+    if(!AppRouter.instance){
+      AppRouter.instance = express.Router();
+    }
+
+    return AppRouter.instance;
+  }
+}
+```
+
+- express router는 여러 파일에서 사용하므로 singleton pattern을 이용하여 한번만 호출되게 한다.
+
+### Defining a RouteBuilder
+
+routes.ts
+
+```
+import 'reflect-metadata';
+
+function routeBinder(method: string){
+  return function(path: string) {
+    return function(target: any, key: string, desc: PropertyDescriptor) {
+      Reflect.defineMetadata('path', path, target, key);
+      Reflect.defineMetadata('method', method, target, key);
+    };
+  };
+}
+
+export const get = routeBinder('get');
+export const post = routeBinder('post');
+export const put = routeBinder('put');
+export const del = routeBinder('del');
+export const patch = routeBinder('patch');
+```
+
+### Closed Method Sets with Enums
+
+src/controllers/decorators/Methods.ts
+
+```
+export enum Methods {
+  get = 'get',
+  post = 'post',
+  patch = 'patch',
+  del = 'delete',
+  put = 'put'
+}
+```
+
+src/controllers/decorators/routes.ts
+
+```
+import 'reflect-metadata';
+import { Methods } from './Methods';
+
+function routeBinder(method: string){
+  return function(path: string) {
+    return function(target: any, key: string, desc: PropertyDescriptor) {
+      Reflect.defineMetadata('path', path, target, key);
+      Reflect.defineMetadata('method', method, target, key);
+    };
+  };
+}
+
+export const get = routeBinder(Methods.get);
+export const post = routeBinder(Methods.post);
+export const put = routeBinder(Methods.put);
+export const del = routeBinder(Methods.del);
+export const patch = routeBinder(Methods.patch);
+```
+
+src/controllers/decorators/controller.ts
+
+```
+import 'reflect-metadata';
+import { AppRouter } from '../../AppRouter';
+import { Methods } from './Methods';
+
+export function controller(routePrefix: string){
+  return function(target: Function){
+    const router = AppRouter.getInstance();
+
+    for(let key in target.prototype){
+      const routeHandler = target.prototype[key];
+      const path = Reflect.getMetadata('path', target.prototype, key);
+      const method: Methods = Reflect.getMetadata('method', target.prototype, key);
+
+      if(path){
+        router[method](`${routePrefix}${path}`, routeHandler);
+      }
+    }
+  };
+}
+```
+
+express Router 구조
+
+```
+export interface Router extends IRouter {}
+
+export interface IRouter extends RequestHandler{
+  ...
+  get: IRouterMatcher<this, 'get'>;
+  post: IRouterMatcher<this, 'post'>;
+  put: IRouterMatcher<this, 'put'>;
+  delete: IRouterMatcher<this, 'delete'>;
+  patch: IRouterMatcher<this, 'patch'>;
+  options: IRouterMatcher<this, 'options'>;
+  ...
+}
+```
+
+// controller.ts에서 method를 enum 으로 type을 정해주면서 router가 Router interface에서 정의된 함수를 찾아서 실행시킬 수 있다.
+
+### Metadata Keys
+
+enum의 property는 주로 대문자로 하지만 여기서는 그냥 소문자로 진행하도록 한다.
+
+### The 'Use' Decorator
+
+use.ts
+
+```
+import { RequestHandler } from 'express';
+import 'reflect-metadata';
+import { MetadataKeys } from './enum/MetadataKeys';
+
+export function use(middleware: RequestHandler) {
+  return function(target: any, key: string, desc: PropertyDescriptor) {
+    const middlewares = Reflect.getMetadata(MetadataKeys.middleware, target, key) || [];
+
+    // [...middlewars, middleware ] === middlewares.push(middleware)
+    Reflect.defineMetadata(MetadataKeys.middleware,[...middlewares, middleware], target, key);
+  };
+}
+```
+
+controller.ts
+
+```
+import 'reflect-metadata';
+import { AppRouter } from '../../AppRouter';
+import { Methods } from './enum/Methods';
+import { MetadataKeys } from './enum/MetadataKeys';
+
+export function controller(routePrefix: string){
+  return function(target: Function){
+    const router = AppRouter.getInstance();
+
+    for(let key in target.prototype){
+      const routeHandler = target.prototype[key];
+      const path = Reflect.getMetadata(MetadataKeys.path, target.prototype, key);
+      const method: Methods = Reflect.getMetadata(MetadataKeys.method, target.prototype, key);
+      const middlewares = Reflect.getMetadata(MetadataKeys.middleware, target.prototype, key) || [];
+
+      if(path){
+        // ... spread syntax -> rest parameter
+        router[method](`${routePrefix}${path}`, ...middlewares, routeHandler);
+      }
+    }
+  };
+}
+```
+
+rest parameter
+
+- ...middlewares는 나머지 파라미터라고 불리며 함수의 매개변수 갯수가 정해져있지 않을 때 자주 사용하는 문법이다.
+  - router[method]('/auth/login', middleware1, middleware2, routeHandler)
+  - router[method]('/auth/login', middleware1, routeHandler)
+  - 위의 두 예시처럼 될 수 있다는 뜻.
+
+// 전체적으로 코드 정리한거 넣어야함
