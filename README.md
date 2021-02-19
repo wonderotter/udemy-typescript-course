@@ -2726,4 +2726,33 @@ rest parameter
   - router[method]('/auth/login', middleware1, routeHandler)
   - 위의 두 예시처럼 될 수 있다는 뜻.
 
-// 전체적으로 코드 정리한거 넣어야함
+### Using Property Descriptors for Type Checking
+
+routes.ts
+
+```
+import 'reflect-metadata';
+import { Methods } from './enum/Methods';
+import { MetadataKeys } from './enum/MetadataKeys';
+import { RequestHandler } from 'express';
+
+// 함수가 (req: Request, res: Response, next: NextFunction) => {} 형태인 RequestHandler를 받지 않는다면 오류
+interface RouteHandlerDescriptor extends PropertyDescriptor {
+  value?: RequestHandler
+}
+
+function routeBinder(method: string){
+  return function(path: string) {
+    return function(target: any, key: string, desc: RouteHandlerDescriptor) {
+      Reflect.defineMetadata(MetadataKeys.path, path, target, key);
+      Reflect.defineMetadata(MetadataKeys.method, method, target, key);
+    };
+  };
+}
+
+export const get = routeBinder(Methods.get);
+export const post = routeBinder(Methods.post);
+export const put = routeBinder(Methods.put);
+export const del = routeBinder(Methods.del);
+export const patch = routeBinder(Methods.patch);
+```

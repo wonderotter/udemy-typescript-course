@@ -4,16 +4,17 @@ import { Methods } from './enum/Methods';
 import { MetadataKeys } from './enum/MetadataKeys';
 import { NextFunction, RequestHandler, Request, Response } from 'express';
 
-function bodyValidators(keys: string): RequestHandler {
+function bodyValidators(keys: string[]): RequestHandler {
   return function(req: Request, res: Response, next: NextFunction) {
     if(!req.body){
-      res.status(422).send('Invalid request');
+      res.status(422).send('<h1>Invalid request</h1>');
       return;
     }
 
+    
     for(let key of keys) {
       if(!req.body[key]) {
-        res.status(422).send('Invalid request');
+        res.status(422).send(`<script>alert('Missing property ${key}.'); location.href="/auth/login";</script>`);
         return;
       }
     }
@@ -31,7 +32,7 @@ export function controller(routePrefix: string){
       const path = Reflect.getMetadata(MetadataKeys.path, target.prototype, key);
       const method: Methods = Reflect.getMetadata(MetadataKeys.method, target.prototype, key);
       const middlewares = Reflect.getMetadata(MetadataKeys.middleware, target.prototype, key) || [];
-      const requiredBodyProps = Reflect.getMetadata(MetadataKeys.validator, target.prototype, key);
+      const requiredBodyProps = Reflect.getMetadata(MetadataKeys.validator, target.prototype, key) || [];
 
       const validator = bodyValidators(requiredBodyProps);
 
