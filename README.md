@@ -2757,10 +2757,6 @@ export const del = routeBinder(Methods.del);
 export const patch = routeBinder(Methods.patch);
 ```
 
-## React and Redux with Typescript
-
-### Generating the App
-
-```
- npx create-react-app react-ts --template typescript
-```
+// 현재 진행중
+https://velog.io/@velopert/using-hooks-with-typescript
+useReducer까지 완료
