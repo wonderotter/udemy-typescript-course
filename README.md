@@ -2756,3 +2756,11 @@ export const put = routeBinder(Methods.put);
 export const del = routeBinder(Methods.del);
 export const patch = routeBinder(Methods.patch);
 ```
+
+## React and Redux with Typescript
+
+### Generating the App
+
+```
+ npx create-react-app react-ts --template typescript
+```
