@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 type MyFormProps = {
   onSubmit: (form: { name: string; description: string }) => void;
 };
 
 function MyForm({ onSubmit }: MyFormProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({
     name: '',
     description: '',
@@ -27,11 +28,17 @@ function MyForm({ onSubmit }: MyFormProps) {
       name: '',
       description: '',
     });
+
+    if(!inputRef.current){
+      return;
+    }
+
+    inputRef.current.focus();
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" name="name" value={name} onChange={onChange} />
+      <input type="text" name="name" value={name} onChange={onChange} ref={inputRef}/>
       <input
         type="text"
         name="description"
