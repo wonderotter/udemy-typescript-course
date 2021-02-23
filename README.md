@@ -1,7 +1,8 @@
 # Typescript: The Complete Developer's Guide [2020]
 
 강의 수료 완료!!
-[certificate](https://udemy-certificate.s3.amazonaws.com/image/UC-1a6f51d5-78c8-4528-bec9-394108bf8ef6.jpg)
+
+[certificate](./img/UC-1a6f51d5-78c8-4528-bec9-394108bf8ef6.jpg)
 
 Udemy typescript 강의 정리 & project
 
