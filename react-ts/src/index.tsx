@@ -1,37 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 type AppProps = {
   color?: string;
 };
 
-type AppState = {
-  counter: number;
-};
+function App(props: AppProps): JSX.Element {
+  const [counter, setCounter] = useState<number>(0);
 
-class App extends React.Component<AppProps> {
-  // overriding
-  state = {
-    counter: 0,
+  const onIncrement = (): void => {
+    setCounter(counter + 1);
   };
 
-  onIncrement = (): void => {
-    this.setState({ counter: this.state.counter + 1 });
+  const onDecrement = (): void => {
+    setCounter(counter - 1);
   };
 
-  onDecrement = (): void => {
-    this.setState({ counter: this.state.counter - 1 });
-  };
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.onIncrement}>Increment</button>
-        <button onClick={this.onDecrement}>Decrement</button>
-        {this.state.counter}
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h1>{props.color}</h1>
+      <button onClick={onIncrement}>Increment</button>
+      <button onClick={onDecrement}>Decrement</button>
+      {counter}
+    </div>
+  );
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App color="red" />, document.getElementById('root'));

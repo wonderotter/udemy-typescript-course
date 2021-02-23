@@ -2765,8 +2765,6 @@ export const patch = routeBinder(Methods.patch);
 npx create-react-app react-ts --template typescript
 ```
 
-- 이 강의는 클래스형으로 수업하지만 나는 함수형으로 바꿀 예정
-
 ### Confusing Component State!
 
 class 형에서 state 관리 두가지 방법
