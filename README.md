@@ -1,5 +1,8 @@
 # Typescript: The Complete Developer's Guide [2020]
 
+강의 수료 완료!!
+[certificate](https://udemy-certificate.s3.amazonaws.com/image/UC-1a6f51d5-78c8-4528-bec9-394108bf8ef6.jpg)
+
 Udemy typescript 강의 정리 & project
 
 강의 링크 : https://www.udemy.com/course/typescript-the-complete-developers-guide
@@ -2859,3 +2862,17 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ```
 yarn add redux react-redux axios redux-thunk @types/react-redux
 ```
+
+### 끝으로..
+
+추가로 velopert 블로그에서 typescript 공부한 자료도 추가됨
+
+- velopert/ts-context-api
+- /velopert/ts-react-redux-tutorial
+- /velopert/ts-tutorial
+
+해당강의 react-redux-typescript 강의
+
+- /react-ts
+
+3주정도 소모
