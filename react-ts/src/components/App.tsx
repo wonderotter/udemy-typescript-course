@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Todo, fetchTodos, deleteTodo } from '../actions';
 import { StoreState } from '../reducers';
@@ -11,8 +11,18 @@ type AppProps = {
 };
 
 const _App = ({ todos, fetchTodos, deleteTodo }: AppProps) => {
+  const [fetching, setFetching] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!todos.length) {
+      // 배열의 개수가 0이 아니면
+      setFetching(false);
+    }
+  }, [fetching, todos]);
+
   const onButtonClick = (): void => {
     fetchTodos();
+    setFetching(true);
   };
 
   const onTodoClick = (id: number): void => {
@@ -38,6 +48,7 @@ const _App = ({ todos, fetchTodos, deleteTodo }: AppProps) => {
       <button className="fetch_button" onClick={onButtonClick}>
         Fetch
       </button>
+      {fetching ? 'LOADING' : null}
       <ol> {renderList()}</ol>
     </div>
   );
