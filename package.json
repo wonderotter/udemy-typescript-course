@@ -13,7 +13,7 @@
   "dependencies": {
     "@types/faker": "^4.1.11",
     "@types/googlemaps": "^3.30.20",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "faker": "^4.1.0",
     "global": "^4.4.0",
     "parcel-bundler": "^1.12.4",
