@@ -2853,3 +2853,9 @@ class App extends React.Component<AppProps> {
 
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
+
+### Redux Setup
+
+```
+yarn add redux react-redux axios redux-thunk @types/react-redux
+```
