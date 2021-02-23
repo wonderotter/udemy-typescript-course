@@ -1,10 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Todo, fetchTodos } from '../actions';
+import { StoreState } from '../reducers';
 
 type AppProps = {
-  color: string;
+  todos: Todo[];
+  fetchTodos(): any; //TODO
 };
-function App({ color }: AppProps) {
-  return <div>Hi {color}!</div>;
+
+function _App() {
+  return <div>Hi!</div>;
 }
 
-export default App;
+const mapStateToProps = (state: StoreState): { todos: Todo[] } => {
+  return {
+    todos: state.todos,
+  };
+};
+
+export const App = connect(mapStateToProps, { fetchTodos })(_App);
