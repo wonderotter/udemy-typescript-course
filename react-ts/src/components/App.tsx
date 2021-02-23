@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Todo, fetchTodos } from '../actions';
 import { StoreState } from '../reducers';
+import './App.css';
 
 type AppProps = {
   todos: Todo[];
@@ -15,14 +16,20 @@ function _App({ todos, fetchTodos }: AppProps) {
 
   const renderList = (): JSX.Element[] => {
     return todos.map((todo: Todo) => {
-      return <div key={todo.id}>{todo.title}</div>;
+      return (
+        <li className="list_item" key={todo.id}>
+          {todo.title}
+        </li>
+      );
     });
   };
 
   return (
     <div>
-      <button onClick={onButtonClick}>Fetch</button>
-      {renderList()}
+      <button className="fetch_button" onClick={onButtonClick}>
+        Fetch
+      </button>
+      <ol> {renderList()}</ol>
     </div>
   );
 }
