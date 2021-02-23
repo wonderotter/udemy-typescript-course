@@ -8,8 +8,23 @@ type AppProps = {
   fetchTodos(): any; //TODO
 };
 
-function _App() {
-  return <div>Hi!</div>;
+function _App({ todos, fetchTodos }: AppProps) {
+  const onButtonClick = (): void => {
+    fetchTodos();
+  };
+
+  const renderList = (): JSX.Element[] => {
+    return todos.map((todo: Todo) => {
+      return <div key={todo.id}>{todo.title}</div>;
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={onButtonClick}>Fetch</button>
+      {renderList()}
+    </div>
+  );
 }
 
 const mapStateToProps = (state: StoreState): { todos: Todo[] } => {
