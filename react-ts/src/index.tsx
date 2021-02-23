@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-interface AppProps {
+type AppProps = {
   color?: string;
-}
+};
+
+type AppState = {
+  counter: number;
+};
 
 class App extends React.Component<AppProps> {
+  // overriding
   state = {
     counter: 0,
   };

@@ -2764,3 +2764,94 @@ export const patch = routeBinder(Methods.patch);
 ```
 npx create-react-app react-ts --template typescript
 ```
+
+- 이 강의는 클래스형으로 수업하지만 나는 함수형으로 바꿀 예정
+
+### Confusing Component State!
+
+class 형에서 state 관리 두가지 방법
+
+1.
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+type AppProps = {
+  color?: string;
+};
+
+type AppState = {
+  counter: number;
+};
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+
+    this.state = { counter: 0 };
+  }
+
+  onIncrement = (): void => {
+    this.setState({ counter: this.state.counter + 1 });
+  };
+
+  onDecrement = (): void => {
+    this.setState({ counter: this.state.counter - 1 });
+  };
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.onIncrement}>Increment</button>
+        <button onClick={this.onDecrement}>Decrement</button>
+        {this.state.counter}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+2.
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+type AppProps = {
+  color?: string;
+};
+
+type AppState = {
+  counter: number;
+};
+
+class App extends React.Component<AppProps> {
+  // overriding
+  state = {
+    counter: 0,
+  };
+
+  onIncrement = (): void => {
+    this.setState({ counter: this.state.counter + 1 });
+  };
+
+  onDecrement = (): void => {
+    this.setState({ counter: this.state.counter - 1 });
+  };
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.onIncrement}>Increment</button>
+        <button onClick={this.onDecrement}>Decrement</button>
+        {this.state.counter}
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+```
